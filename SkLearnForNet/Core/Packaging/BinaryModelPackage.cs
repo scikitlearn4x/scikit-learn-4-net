@@ -156,7 +156,7 @@ namespace SkLearn.Core.Packaging
 
             if (hasValue == 1)
             {
-                result = BitConverter.ToSingle(ReadBuffer(4));
+                result = BitConverter.ToSingle(ReadBuffer(4), 0);
             }
 
             return result;
@@ -173,7 +173,7 @@ namespace SkLearn.Core.Packaging
 
             if (hasValue == 1)
             {
-                result = BitConverter.ToDouble(ReadBuffer(8));
+                result = BitConverter.ToDouble(ReadBuffer(8), 0);
             }
 
             return result;
@@ -219,12 +219,14 @@ namespace SkLearn.Core.Packaging
                 }
 
                 result = Array.CreateInstance(GetComponentType(elementType), shape);
-                ReadNumpyDataFromStream(result, shape, 0, elementType);
+                int[] indices = new int[shape.Length];
+
+                ReadNumpyDataFromStream(result, indices, 0, shape, elementType);
             }
 
             return result;
         }
-
+        
         /// <summary>
         /// Reads a list from the stream.
         /// <returns>The list stored in the stream, or null if it has no value.</returns>
@@ -293,26 +295,25 @@ namespace SkLearn.Core.Packaging
             return result;
         }
 
-
         /// <summary>
         /// Recursively read the stream to load an encoded numpy array from the stream.
-        /// <param name="array">The array to be loaded.</param>
-        /// <param name="shape">The shape of the numpy array.</param>
-        /// <param name="dimension">The current dimension being loaded.</param>
-        /// <param name="elementType">The type of the numpy array's elements.</param>
         /// </summary>
-        private void ReadNumpyDataFromStream(Array array, int[] shape, int dimension, BinaryModelPackageElementType elementType)
+        /// <param name="result">The array to be loaded.</param>
+        /// <param name="indices">The current subarray index being loaded in the recursion stack.</param>
+        /// <param name="dimension">The current dimension being loaded in the recursion stack.</param>
+        /// <param name="shape">The shape of the numpy array.</param>
+        /// <param name="elementType">The type of the numpy array's elements.</param>
+        private void ReadNumpyDataFromStream(Array result, int[] indices, int dimension, int[] shape, BinaryModelPackageElementType elementType)
         {
             if (dimension == shape.Length - 1)
             {
                 // This is the last dimension of the tensor, read actual values.
-                BinaryModelPackagePrimitiveValueReader reader = GetPrimitiveDataReader(elementType);
-                int count = shape[dimension];
-
-                for (int i = 0; i < count; i++)
+                for (int i = 0; i < shape[dimension]; i++)
                 {
+                    indices[dimension] = i;
+                    BinaryModelPackagePrimitiveValueReader reader = GetPrimitiveDataReader(elementType);
                     Object value = reader();
-                    array.SetValue(value, i); 
+                    result.SetValue(value, indices);
                 }
             }
             else
@@ -320,8 +321,8 @@ namespace SkLearn.Core.Packaging
                 // This is an intermediate dimensions, it should read a tensor from the buffer
                 for (int i = 0; i < shape[dimension]; i++)
                 {
-                    
-                    ReadNumpyDataFromStream((Array)array.GetValue(i), shape, dimension + 1, elementType);
+                    indices[dimension] = i;
+                    ReadNumpyDataFromStream(result, indices, dimension + 1, shape, elementType);
                 }
             }
         }
@@ -435,6 +436,18 @@ namespace SkLearn.Core.Packaging
             {
                 result = () => ReadDouble();
             }
+            else if (elementType == BinaryModelPackageElementType.Dictionary)
+            {
+                result = () => ReadDictionary();
+            }
+            else if (elementType == BinaryModelPackageElementType.List)
+            {
+                result = () => ReadList();
+            }
+            else if (elementType == BinaryModelPackageElementType.String)
+            {
+                result = () => ReadString();
+            }
             else
             {
                 throw new Exception($"Numpy array with element type {(int)elementType} is not supported.");
@@ -454,7 +467,7 @@ namespace SkLearn.Core.Packaging
             byte[] buffer = new byte[size];
 
             int length = 0;
-            length = stream.Read(buffer);
+            length = stream.Read(buffer, 0, size);
 
             if (length != size)
             {

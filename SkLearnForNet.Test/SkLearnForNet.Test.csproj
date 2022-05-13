@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>SkLearn.Test</RootNamespace>
     <AssemblyName>SkLearnForNet.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +41,12 @@
   <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="Core\Packaging\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SkLearnForNet\SkLearnForNet.csproj">
+      <Project>{68e3770b-838f-4152-be63-bb6324030f31}</Project>
+      <Name>SkLearnForNet</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
