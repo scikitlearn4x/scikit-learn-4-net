@@ -14,7 +14,7 @@ namespace SkLearn.Test.Core.Packaging
         {
             byte[] data = new byte[] { 0 };
 
-            String actual = readStringFromByteArray(data);
+            String actual = ReadStringFromByteArray(data);
             Assert.Null(actual);
         }
 
@@ -24,7 +24,7 @@ namespace SkLearn.Test.Core.Packaging
             byte[] data = new byte[] { 1, 4, 0, 0, 0, 116, 101, 115, 116 };
             String expected = "test";
 
-            String actual = readStringFromByteArray(data);
+            String actual = ReadStringFromByteArray(data);
             Assert.AreEqual(expected, actual);
         }
 
@@ -38,7 +38,7 @@ namespace SkLearn.Test.Core.Packaging
             };
             String expected = "نمونه";
 
-            String actual = readStringFromByteArray(data);
+            String actual = ReadStringFromByteArray(data);
             Assert.AreEqual(expected, actual);
         }
 
@@ -47,7 +47,7 @@ namespace SkLearn.Test.Core.Packaging
         {
             byte[] data = new byte[] { 0 };
 
-            Object actual = readNumpyArrayFromByteArray(data);
+            Object actual = ReadNumpyArrayFromByteArray(data);
             Assert.Null(actual);
         }
 
@@ -57,8 +57,8 @@ namespace SkLearn.Test.Core.Packaging
             byte[] data = new byte[] { 1, 1, 0, 0, 0, 17, 2, 0, 0, 0, 6, 7 };
             byte[] expected = new byte[] { 6, 7 };
 
-            byte[] actual = (byte[])readNumpyArrayFromByteArray(data);
-            checkArraySimilarity(expected, actual);
+            byte[] actual = (byte[])ReadNumpyArrayFromByteArray(data);
+            CheckArraySimilarity(expected, actual);
         }
 
         [Test]
@@ -67,8 +67,8 @@ namespace SkLearn.Test.Core.Packaging
             byte[] data = new byte[] { 1, 1, 0, 0, 0, 18, 2, 0, 0, 0, 6, 0, 7, 0 };
             short[] expected = new short[] { 6, 7 };
 
-            short[] actual = (short[])readNumpyArrayFromByteArray(data);
-            checkArraySimilarity(expected, actual);
+            short[] actual = (short[])ReadNumpyArrayFromByteArray(data);
+            CheckArraySimilarity(expected, actual);
         }
 
         [Test]
@@ -77,8 +77,8 @@ namespace SkLearn.Test.Core.Packaging
             byte[] data = new byte[] { 1, 1, 0, 0, 0, 20, 2, 0, 0, 0, 6, 0, 0, 0, 7, 0, 0, 0 };
             int[] expected = new int[] { 6, 7 };
 
-            int[] actual = (int[])readNumpyArrayFromByteArray(data);
-            checkArraySimilarity(expected, actual);
+            int[] actual = (int[])ReadNumpyArrayFromByteArray(data);
+            CheckArraySimilarity(expected, actual);
         }
 
         [Test]
@@ -87,8 +87,8 @@ namespace SkLearn.Test.Core.Packaging
             byte[] data = new byte[] { 1, 1, 0, 0, 0, 24, 2, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0 };
             long[] expected = new long[] { 6, 7 };
 
-            long[] actual = (long[])readNumpyArrayFromByteArray(data);
-            checkArraySimilarity(expected, actual);
+            long[] actual = (long[])ReadNumpyArrayFromByteArray(data);
+            CheckArraySimilarity(expected, actual);
         }
 
         [Test]
@@ -98,8 +98,8 @@ namespace SkLearn.Test.Core.Packaging
                 { 1, 1, 0, 0, 0, 32, 3, 0, 0, 0, 1, 0, 0, (byte)192, 64, 1, 0, 0, (byte)224, 64, 0 };
             float[] expected = new float[] { 6, 7, float.NaN };
 
-            float[] actual = (float[])readNumpyArrayFromByteArray(data);
-            checkArraySimilarity(expected, actual);
+            float[] actual = (float[])ReadNumpyArrayFromByteArray(data);
+            CheckArraySimilarity(expected, actual);
         }
 
         [Test]
@@ -109,8 +109,8 @@ namespace SkLearn.Test.Core.Packaging
                 { 1, 1, 0, 0, 0, 33, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 24, 64, 1, 0, 0, 0, 0, 0, 0, 28, 64, 0 };
             double[] expected = new double[] { 6, 7, Double.NaN };
 
-            double[] actual = (double[])readNumpyArrayFromByteArray(data);
-            checkArraySimilarity(expected, actual);
+            double[] actual = (double[])ReadNumpyArrayFromByteArray(data);
+            CheckArraySimilarity(expected, actual);
         }
 
         [Test]
@@ -119,8 +119,8 @@ namespace SkLearn.Test.Core.Packaging
             byte[] data = new byte[] { 1, 2, 0, 0, 0, 17, 2, 0, 0, 0, 1, 0, 0, 0, 6, 7 };
             byte[][] expected = new byte[][] { new byte[] { 6 }, new byte[] { 7 } };
 
-            byte[,] actual = (byte[,])readNumpyArrayFromByteArray(data);
-            checkArraySimilarity(expected, actual);
+            byte[,] actual = (byte[,])ReadNumpyArrayFromByteArray(data);
+            CheckArraySimilarity(expected, actual);
         }
 
         [Test]
@@ -129,8 +129,8 @@ namespace SkLearn.Test.Core.Packaging
             byte[] data = new byte[] { 1, 2, 0, 0, 0, 4, 2, 0, 0, 0, 1, 0, 0, 0, 6, 0, 0, 0, 7, 0, 0, 0 };
             int[][] expected = new int[][] { new int[] { 6 }, new int[] { 7 } };
 
-            int[,] actual = (int[,])readNumpyArrayFromByteArray(data);
-            checkArraySimilarity(expected, actual);
+            int[,] actual = (int[,])ReadNumpyArrayFromByteArray(data);
+            CheckArraySimilarity(expected, actual);
         }
 
         [Test]
@@ -143,8 +143,8 @@ namespace SkLearn.Test.Core.Packaging
             int[][][] expected = new int[][][]
                 { new int[][] { new int[] { 6 }, new int[] { 7 } }, new int[][] { new int[] { 8 }, new int[] { 9 } } };
 
-            int[,,] actual = (int[,,])readNumpyArrayFromByteArray(data);
-            checkArraySimilarity(expected, actual);
+            int[,,] actual = (int[,,])ReadNumpyArrayFromByteArray(data);
+            CheckArraySimilarity(expected, actual);
         }
 
         [Test]
@@ -216,7 +216,7 @@ namespace SkLearn.Test.Core.Packaging
             Assert.AreEqual(-6.84, listDictionary["another"]);
         }
 
-        private void checkArraySimilarity(byte[] expected, byte[] actual)
+        private void CheckArraySimilarity(byte[] expected, byte[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
 
@@ -226,7 +226,7 @@ namespace SkLearn.Test.Core.Packaging
             }
         }
 
-        private void checkArraySimilarity(byte[][] expected, byte[,] actual)
+        private void CheckArraySimilarity(byte[][] expected, byte[,] actual)
         {
             Assert.AreEqual(expected.Length, actual.GetLength(0));
 
@@ -240,7 +240,7 @@ namespace SkLearn.Test.Core.Packaging
             }
         }
 
-        private void checkArraySimilarity(short[] expected, short[] actual)
+        private void CheckArraySimilarity(short[] expected, short[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
 
@@ -250,7 +250,7 @@ namespace SkLearn.Test.Core.Packaging
             }
         }
 
-        private void checkArraySimilarity(int[] expected, int[] actual)
+        private void CheckArraySimilarity(int[] expected, int[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
 
@@ -260,7 +260,7 @@ namespace SkLearn.Test.Core.Packaging
             }
         }
 
-        private void checkArraySimilarity(int[][] expected, int[,] actual)
+        private void CheckArraySimilarity(int[][] expected, int[,] actual)
         {
             Assert.AreEqual(expected.Length, actual.GetLength(0));
 
@@ -274,7 +274,7 @@ namespace SkLearn.Test.Core.Packaging
             }
         }
 
-        private void checkArraySimilarity(int[][][] expected, int[,,] actual)
+        private void CheckArraySimilarity(int[][][] expected, int[,,] actual)
         {
             Assert.AreEqual(expected.Length, actual.GetLength(0));
 
@@ -292,7 +292,7 @@ namespace SkLearn.Test.Core.Packaging
             }
         }
 
-        private void checkArraySimilarity(long[] expected, long[] actual)
+        private void CheckArraySimilarity(long[] expected, long[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
 
@@ -302,7 +302,7 @@ namespace SkLearn.Test.Core.Packaging
             }
         }
 
-        private void checkArraySimilarity(float[] expected, float[] actual)
+        private void CheckArraySimilarity(float[] expected, float[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
 
@@ -312,7 +312,7 @@ namespace SkLearn.Test.Core.Packaging
             }
         }
 
-        private void checkArraySimilarity(double[] expected, double[] actual)
+        private void CheckArraySimilarity(double[] expected, double[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
 
@@ -322,7 +322,7 @@ namespace SkLearn.Test.Core.Packaging
             }
         }
 
-        private String readStringFromByteArray(byte[] data)
+        private String ReadStringFromByteArray(byte[] data)
         {
             Stream stream = new MemoryStream(data);
             BinaryModelPackage binary = BinaryModelPackage.FromStream(stream);
@@ -330,7 +330,7 @@ namespace SkLearn.Test.Core.Packaging
             return binary.ReadString();
         }
 
-        private Object readNumpyArrayFromByteArray(byte[] data)
+        private Object ReadNumpyArrayFromByteArray(byte[] data)
         {
             Stream stream = new MemoryStream(data);
             BinaryModelPackage binary = BinaryModelPackage.FromStream(stream);
