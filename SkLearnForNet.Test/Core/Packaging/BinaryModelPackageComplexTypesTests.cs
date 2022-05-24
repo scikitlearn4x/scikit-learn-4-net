@@ -215,6 +215,47 @@ namespace SkLearn.Test.Core.Packaging
             Assert.AreEqual("one", listDictionary["sample"]);
             Assert.AreEqual(-6.84, listDictionary["another"]);
         }
+        
+        [Test]
+        public void TestReadingNullArrayOfString() {
+            byte[] data = new byte[]{0};
+            Stream stream = new MemoryStream(data);
+            BinaryModelPackage binary = BinaryModelPackage.FromStream(stream);
+
+            String[] actual = binary.ReadStringArray();
+            Assert.Null(actual);
+        }
+
+        [Test]
+        public void TestReadingArrayOfString() {
+            byte[] data = new byte[]{1, 3, 0, 0, 0, 1, 1, 0, 0, 0, 97, 1, 1, 0, 0, 0, 98, 0};
+            Stream stream = new MemoryStream(data);
+            BinaryModelPackage binary = BinaryModelPackage.FromStream(stream);
+
+            String[] actual = binary.ReadStringArray();
+            Assert.AreEqual(3, actual.Length);
+
+            Assert.AreEqual("a", actual[0]);
+            Assert.AreEqual("b", actual[1]);
+            Assert.Null(actual[2]);
+        }
+
+        [Test]
+        public void TestReadingArrayOfStringInDictionary() {
+            byte[] data = new byte[]{1, 1, 0, 0, 0, 1, 9, 0, 0, 0, 115, 116, 114, 95, 97, 114, 114, 97, 121, 67, 1, 2, 0, 0, 0, 1, 1, 0, 0, 0, 97, 1, 1, 0, 0, 0, 98};
+            Stream stream = new MemoryStream(data);
+            BinaryModelPackage binary = BinaryModelPackage.FromStream(stream);
+
+            Dictionary<String, Object> dic = binary.ReadDictionary();
+            Assert.AreEqual(1, dic.Count);
+
+            String[] actual = (String[]) dic["str_array"];
+            Assert.AreEqual(2, actual.Length);
+
+            Assert.AreEqual("a", actual[0]);
+            Assert.AreEqual("b", actual[1]);
+        }
+
 
         private void CheckArraySimilarity(byte[] expected, byte[] actual)
         {

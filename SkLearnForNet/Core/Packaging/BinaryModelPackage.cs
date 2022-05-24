@@ -28,6 +28,8 @@ namespace SkLearn.Core.Packaging
         String = 0x30,
         List = 0x40,
         Dictionary = 0x41,
+        NumpyArray = 0x42,
+        StringArray = 0x43,
         Null = 0x10,
     }
 
@@ -440,6 +442,14 @@ namespace SkLearn.Core.Packaging
             {
                 result = () => ReadDictionary();
             }
+            else if (elementType == BinaryModelPackageElementType.NumpyArray)
+            {
+                result = () => ReadNumpyArray();
+            }
+            else if (elementType == BinaryModelPackageElementType.StringArray)
+            {
+                result = () => ReadStringArray();
+            }
             else if (elementType == BinaryModelPackageElementType.List)
             {
                 result = () => ReadList();
@@ -475,6 +485,27 @@ namespace SkLearn.Core.Packaging
             }
 
             return buffer;
+        }
+
+        /// <summary>
+        /// Reads an array of string from the stream.
+        /// <returns>The String[] stored in the stream, or null if it has no value.</returns>
+        /// </summary>
+        public String[] ReadStringArray()
+        {
+            String[] result = null;
+            int hasValue = ReadByte();
+
+            if (hasValue == 1) {
+                int count = ReadInteger();
+                result = new String[count];
+
+                for (int i = 0; i < count; i++) {
+                    result[i] = ReadString();
+                }
+            }
+
+            return result;
         }
     }
 }
