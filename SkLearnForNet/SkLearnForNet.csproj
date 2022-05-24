@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <RootNamespace>SkLearn</RootNamespace>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
