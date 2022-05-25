@@ -128,6 +128,24 @@ namespace SkLearn.Test
             }
         }
 
+        public static void AssertEqualData(NumpyArray<float> numpyArray, float[,] array)
+        {
+            Assert.AreEqual(2, numpyArray.Shape.Length);
+            Assert.AreEqual(array.GetLength(0), numpyArray.Shape[0]);
+            Assert.AreEqual(array.GetLength(1), numpyArray.Shape[1]);
+
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    double diff = Math.Abs(array[i, j] - numpyArray.Get(i, j));
+                    bool check = diff < DOUBLE_COMPARE_EPSILON;
+
+                    Assert.True(check);
+                }
+            }
+        }
+
         public static void AssertEqualData(NumpyArray<float> numpyArray, float[][] array)
         {
             Assert.AreEqual(2, numpyArray.Shape.Length);
@@ -229,6 +247,25 @@ namespace SkLearn.Test
                         bool check = diff < DOUBLE_COMPARE_EPSILON;
 
                         Assert.True(check);
+                    }
+                }
+            }
+        }
+
+        public static void AssertEqualData(NumpyArray<byte> numpyArray, byte[,,] array)
+        {
+            Assert.AreEqual(3, numpyArray.Shape.Length);
+            Assert.AreEqual(array.GetLength(0), numpyArray.Shape[0]);
+            Assert.AreEqual(array.GetLength(1), numpyArray.Shape[1]);
+            Assert.AreEqual(array.GetLength(2), numpyArray.Shape[2]);
+
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    for (int k = 0; k < array.GetLength(2); k++)
+                    {
+                        Assert.AreEqual(array[i, j, k], numpyArray.Get(i, j, k));
                     }
                 }
             }

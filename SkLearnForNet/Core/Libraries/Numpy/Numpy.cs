@@ -1,4 +1,5 @@
 using System;
+using System.CodeDom;
 using SkLearn.Core.Libraries.Numpy.Wrappers;
 
 namespace SkLearn.Core.Libraries.Numpy
@@ -674,6 +675,12 @@ namespace SkLearn.Core.Libraries.Numpy
             int effective1 = GetEffectiveShapeWithRemovingEndingDimensions(shape1);
             int effective2 = GetEffectiveShapeWithRemovingEndingDimensions(shape2);
 
+            if (effective2 == 0)
+            {
+                // This is the case where a single number is added to NumpyArray. 
+                return;
+            }
+
             if (effective1 != effective2 && Math.Abs(effective2 - effective1) != 1)
             {
                 throw new NumpyOperationException("The effective shape of the two numpy array has different number of dimensions.");
@@ -713,6 +720,78 @@ namespace SkLearn.Core.Libraries.Numpy
 
         public static NumpyArray<OutputType> Add<InputType1, InputType2, OutputType>(NumpyArray<InputType1> a1, NumpyArray<InputType2> a2) where InputType1 : struct where InputType2 : struct where OutputType : struct
         {
+            int sign = 1;
+            return AddNumpyArraysWithSign<InputType1, InputType2, OutputType>(a1, a2, sign);
+        }
+
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, byte value) where InputType : struct where OutputType : struct
+        {
+            NumpyArray<byte> asArray = NumpyArrayFactory.From(new[] { value });
+            return Add<InputType, byte, OutputType>(a1, asArray);
+        }
+
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, short value) where InputType : struct where OutputType : struct
+        {
+            NumpyArray<short> asArray = NumpyArrayFactory.From(new[] { value });
+            return Add<InputType, short, OutputType>(a1, asArray);
+        }
+
+        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, short value) where InputType : struct where OutputType : struct
+        {
+            NumpyArray<short> asArray = NumpyArrayFactory.From(new[] { (short)-value });
+            return Add<InputType, short, OutputType>(a1, asArray);
+        }
+
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, int value) where InputType : struct where OutputType : struct
+        {
+            NumpyArray<int> asArray = NumpyArrayFactory.From(new[] { value });
+            return Add<InputType, int, OutputType>(a1, asArray);
+        }
+
+        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, int value) where InputType : struct where OutputType : struct
+        {
+            NumpyArray<int> asArray = NumpyArrayFactory.From(new[] { (int)-value });
+            return Add<InputType, int, OutputType>(a1, asArray);
+        }
+
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, long value) where InputType : struct where OutputType : struct
+        {
+            NumpyArray<long> asArray = NumpyArrayFactory.From(new[] { value });
+            return Add<InputType, long, OutputType>(a1, asArray);
+        }
+
+        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, long value) where InputType : struct where OutputType : struct
+        {
+            NumpyArray<long> asArray = NumpyArrayFactory.From(new[] { -value });
+            return Add<InputType, long, OutputType>(a1, asArray);
+        }
+
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, float value) where InputType : struct where OutputType : struct
+        {
+            NumpyArray<float> asArray = NumpyArrayFactory.From(new[] { value });
+            return Add<InputType, float, OutputType>(a1, asArray);
+        }
+
+        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, float value) where InputType : struct where OutputType : struct
+        {
+            NumpyArray<float> asArray = NumpyArrayFactory.From(new[] { -value });
+            return Add<InputType, float, OutputType>(a1, asArray);
+        }
+
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, double value) where InputType : struct where OutputType : struct
+        {
+            NumpyArray<double> asArray = NumpyArrayFactory.From(new[] { value });
+            return Add<InputType, double, OutputType>(a1, asArray);
+        }
+
+        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, double value) where InputType : struct where OutputType : struct
+        {
+            NumpyArray<double> asArray = NumpyArrayFactory.From(new[] { -value });
+            return Add<InputType, double, OutputType>(a1, asArray);
+        }
+
+        private static NumpyArray<OutputType> AddNumpyArraysWithSign<InputType1, InputType2, OutputType>(NumpyArray<InputType1> a1, NumpyArray<InputType2> a2, int sign) where InputType1 : struct where InputType2 : struct where OutputType : struct
+        {
             ValidateDimensionsForAdd(a1.Shape, a2.Shape);
             if (ShouldSwapForAdd(a1, a2))
             {
@@ -738,7 +817,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 NumpyArray<double> da2 = AsDoubleArray(a2);
                 NumpyArray<double> temp = NumpyArrayFactory.ArrayOfDoubleWithShape(a1.Shape);
 
-                AddInPlace(new int[0], temp, da1, da2, 1);
+                AddInPlace(new int[0], temp, da1, da2, sign);
                 result = AsArrayOfType(temp, true, size);
             }
             else
@@ -747,11 +826,17 @@ namespace SkLearn.Core.Libraries.Numpy
                 NumpyArray<long> da2 = AsLongArray(a2);
                 NumpyArray<long> temp = NumpyArrayFactory.ArrayOfInt64WithShape(a1.Shape);
 
-                AddInPlace(new int[0], temp, da1, da2, 1);
+                AddInPlace(new int[0], temp, da1, da2, sign);
                 result = AsArrayOfType(temp, false, size);
             }
 
             return (NumpyArray<OutputType>)result;
+        }
+
+        public static NumpyArray<OutputType> Subtract<InputType1, InputType2, OutputType>(NumpyArray<InputType1> a1, NumpyArray<InputType2> a2) where InputType1 : struct where InputType2 : struct where OutputType : struct
+        {
+            int sign = -1;
+            return AddNumpyArraysWithSign<InputType1, InputType2, OutputType>(a1, a2, sign);
         }
 
         private static void AddInPlace(int[] targetBaseIndex, NumpyArray<double> target, NumpyArray<double> a1, NumpyArray<double> a2, int sign)
@@ -788,6 +873,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 {
                     newTargetBaseIndex[i] = targetBaseIndex[i];
                 }
+
                 for (int i = 0; i < firstDim; i++)
                 {
                     newTargetBaseIndex[newTargetBaseIndex.Length - 1] = i;
@@ -803,12 +889,14 @@ namespace SkLearn.Core.Libraries.Numpy
             {
                 targetIndex[i] = targetBaseIndex[i];
             }
+
             array.IterateOnEachElement((element, currentIndex) =>
             {
                 for (int i = 0; i < currentIndex.Length; i++)
                 {
                     targetIndex[targetBaseIndex.Length + i] = currentIndex[i];
                 }
+
                 target.Set(value + element, targetIndex);
             });
         }
@@ -847,6 +935,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 {
                     newTargetBaseIndex[i] = targetBaseIndex[i];
                 }
+
                 for (int i = 0; i < firstDim; i++)
                 {
                     newTargetBaseIndex[newTargetBaseIndex.Length - 1] = i;
@@ -862,14 +951,150 @@ namespace SkLearn.Core.Libraries.Numpy
             {
                 targetIndex[i] = targetBaseIndex[i];
             }
+
             array.IterateOnEachElement((element, currentIndex) =>
             {
                 for (int i = 0; i < currentIndex.Length; i++)
                 {
                     targetIndex[targetBaseIndex.Length + i] = currentIndex[i];
                 }
+
                 target.Set(value + element, targetIndex);
             });
+        }
+
+        private static void UpdateLayoutInfoForMultiplication(Type type, ref int size, ref bool floatingPoint)
+        {
+            if (floatingPoint || type == typeof(float) || type == typeof(double))
+            {
+                floatingPoint = true;
+                if (type == typeof(double))
+                {
+                    size = NumpyArrayFactory.SIZE_OF_DOUBLE;
+                }
+            }
+            else
+            {
+                if (type == typeof(long)) size = NumpyArrayFactory.SIZE_OF_INT_64;
+                if (type == typeof(int)) size = Math.Max(NumpyArrayFactory.SIZE_OF_INT_32, size);
+                if (type == typeof(short)) size = Math.Max(NumpyArrayFactory.SIZE_OF_INT_16, size);
+                if (type == typeof(byte)) size = Math.Max(NumpyArrayFactory.SIZE_OF_INT_8, size);
+            }
+        }
+
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, byte value) where InputType : struct where OutputType : struct
+        {
+            int size = NumpyArrayFactory.SIZE_OF_INT_8;
+            bool floatingPoint = false;
+
+            UpdateLayoutInfoForMultiplication(typeof(InputType), ref size, ref floatingPoint);
+
+            return MultiplyNumpyArrayByNumber<InputType, OutputType>(numpyArray, value, floatingPoint, size);
+        }
+
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, short value) where InputType : struct where OutputType : struct
+        {
+            int size = NumpyArrayFactory.SIZE_OF_INT_16;
+            bool floatingPoint = false;
+
+            UpdateLayoutInfoForMultiplication(typeof(InputType), ref size, ref floatingPoint);
+
+            return MultiplyNumpyArrayByNumber<InputType, OutputType>(numpyArray, value, floatingPoint, size);
+        }
+
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, int value) where InputType : struct where OutputType : struct
+        {
+            int size = NumpyArrayFactory.SIZE_OF_INT_32;
+            bool floatingPoint = false;
+
+            UpdateLayoutInfoForMultiplication(typeof(InputType), ref size, ref floatingPoint);
+
+            return MultiplyNumpyArrayByNumber<InputType, OutputType>(numpyArray, value, floatingPoint, size);
+        }
+
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, long value) where InputType : struct where OutputType : struct
+        {
+            int size = NumpyArrayFactory.SIZE_OF_INT_64;
+            bool floatingPoint = false;
+
+            UpdateLayoutInfoForMultiplication(typeof(InputType), ref size, ref floatingPoint);
+
+            return MultiplyNumpyArrayByNumber<InputType, OutputType>(numpyArray, value, floatingPoint, size);
+        }
+
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, float value) where InputType : struct where OutputType : struct
+        {
+            int size = NumpyArrayFactory.SIZE_OF_FLOAT;
+            bool floatingPoint = true;
+
+            UpdateLayoutInfoForMultiplication(typeof(InputType), ref size, ref floatingPoint);
+
+            return MultiplyNumpyArrayByNumber<InputType, OutputType>(numpyArray, value, floatingPoint, size);
+        }
+
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, double value) where InputType : struct where OutputType : struct
+        {
+            int size = NumpyArrayFactory.SIZE_OF_DOUBLE;
+            bool floatingPoint = true;
+
+            UpdateLayoutInfoForMultiplication(typeof(InputType), ref size, ref floatingPoint);
+
+            return MultiplyNumpyArrayByNumber<InputType, OutputType>(numpyArray, value, floatingPoint, size);
+        }
+
+        private static NumpyArray<OutputType> MultiplyNumpyArrayByNumber<InputType, OutputType>(NumpyArray<InputType> numpyArray, double value, bool floatingPoint, int size) where InputType : struct where OutputType : struct
+        {
+            Object result = null;
+            if (floatingPoint)
+            {
+                NumpyArray<double> temp = NumpyArrayFactory.ArrayOfDoubleWithShape(numpyArray.Shape);
+                numpyArray.IterateOnEachElement((element, index) =>
+                {
+                    double e = Convert.ToDouble(element) * value;
+                    temp.Set(e, index);
+                });
+
+                result = AsArrayOfType(temp, true, size);
+            }
+            else
+            {
+                NumpyArray<long> temp = NumpyArrayFactory.ArrayOfInt64WithShape(numpyArray.Shape);
+                long coeff = (long)value;
+                numpyArray.IterateOnEachElement((element, index) =>
+                {
+                    long e = Convert.ToInt64(element) * coeff;
+                    temp.Set(e, index);
+                });
+
+                result = AsArrayOfType(temp, false, size);
+            }
+
+            return (NumpyArray<OutputType>)result;
+        }
+
+        public static NumpyArray<double> Divide(NumpyArray<double> numpyArray, long value)
+        {
+            return Multiply<double, double>(numpyArray, 1.0 / value);
+        }
+
+        public static NumpyArray<double> Divide(NumpyArray<double> numpyArray, double value)
+        {
+            return Multiply<double, double>(numpyArray, 1.0 / value);
+        }
+
+        public static NumpyArray<float> Divide(NumpyArray<float> numpyArray, long value)
+        {
+            return Multiply<float, float>(numpyArray, 1.0f / value);
+        }
+
+        public static NumpyArray<float> Divide(NumpyArray<float> numpyArray, float value)
+        {
+            return Multiply<float, float>(numpyArray, 1.0f / value);
+        }
+
+        public static NumpyArray<double> Divide(NumpyArray<float> numpyArray, double value)
+        {
+            return Multiply<float, double>(numpyArray, 1.0 / value);
         }
     }
 }
