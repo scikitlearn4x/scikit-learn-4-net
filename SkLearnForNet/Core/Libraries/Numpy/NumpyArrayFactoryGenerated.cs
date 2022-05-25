@@ -341,13 +341,11 @@ namespace SkLearn.Core.Libraries.Numpy
             }
             else if (shape.Length == 9)
             {
-                return From(new byte[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8]]);
+                return From(new byte[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8]]);
             }
             else if (shape.Length == 10)
             {
-                return From(new byte[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8], shape[9]]);
+                return From(new byte[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8], shape[9]]);
             }
 
             throw new NotImplementedException();
@@ -389,13 +387,11 @@ namespace SkLearn.Core.Libraries.Numpy
             }
             else if (shape.Length == 9)
             {
-                return From(new short[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8]]);
+                return From(new short[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8]]);
             }
             else if (shape.Length == 10)
             {
-                return From(new short[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8], shape[9]]);
+                return From(new short[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8], shape[9]]);
             }
 
             throw new NotImplementedException();
@@ -437,13 +433,11 @@ namespace SkLearn.Core.Libraries.Numpy
             }
             else if (shape.Length == 9)
             {
-                return From(new int[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8]]);
+                return From(new int[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8]]);
             }
             else if (shape.Length == 10)
             {
-                return From(new int[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8], shape[9]]);
+                return From(new int[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8], shape[9]]);
             }
 
             throw new NotImplementedException();
@@ -485,13 +479,11 @@ namespace SkLearn.Core.Libraries.Numpy
             }
             else if (shape.Length == 9)
             {
-                return From(new long[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8]]);
+                return From(new long[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8]]);
             }
             else if (shape.Length == 10)
             {
-                return From(new long[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8], shape[9]]);
+                return From(new long[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8], shape[9]]);
             }
 
             throw new NotImplementedException();
@@ -533,13 +525,11 @@ namespace SkLearn.Core.Libraries.Numpy
             }
             else if (shape.Length == 9)
             {
-                return From(new float[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8]]);
+                return From(new float[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8]]);
             }
             else if (shape.Length == 10)
             {
-                return From(new float[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8], shape[9]]);
+                return From(new float[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8], shape[9]]);
             }
 
             throw new NotImplementedException();
@@ -581,13 +571,11 @@ namespace SkLearn.Core.Libraries.Numpy
             }
             else if (shape.Length == 9)
             {
-                return From(new double[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8]]);
+                return From(new double[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8]]);
             }
             else if (shape.Length == 10)
             {
-                return From(new double[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7],
-                    shape[8], shape[9]]);
+                return From(new double[shape[0], shape[1], shape[2], shape[3], shape[4], shape[5], shape[6], shape[7], shape[8], shape[9]]);
             }
 
             throw new NotImplementedException();

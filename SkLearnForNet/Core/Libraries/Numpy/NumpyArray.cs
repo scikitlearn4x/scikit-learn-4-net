@@ -4,7 +4,8 @@ using SkLearn.Core.Libraries.Numpy.Wrappers;
 namespace SkLearn.Core.Libraries.Numpy
 {
     public delegate ElementType NumpyArrayElementOperation<ElementType>(ElementType value);
-    
+    public delegate void NumpyArrayElementIterateOperation<ElementType>(ElementType value, int[] index);
+
     public class NumpyArray<ElementType> where ElementType : struct
     {
         private INumpyArrayWrapper<ElementType> data = null;
@@ -16,10 +17,7 @@ namespace SkLearn.Core.Libraries.Numpy
 
         public int[] Shape
         {
-            get
-            {
-                return data.Shape;
-            }
+            get { return data.Shape; }
         }
 
         public ElementType Get(params int[] indices)
@@ -71,6 +69,26 @@ namespace SkLearn.Core.Libraries.Numpy
                 target.Set(operation(data.Get(index)), index);
             } while (counter[counter.Length - 1] == 0);
         }
+        
+        public void IterateOnEachElement(NumpyArrayElementIterateOperation<ElementType> operation)
+        {
+            int[] shape = data.Shape;
+            int[] index = new int[shape.Length];
+            int[] counter = new int[shape.Length + 1];
+            counter[0] = -1;
+
+            do
+            {
+                AddCounter(counter, shape);
+
+                for (int i = 0; i < index.Length; i++)
+                {
+                    index[i] = counter[i];
+                }
+
+                operation(data.Get(index), index);
+            } while (counter[counter.Length - 1] == 0);
+        }
 
         internal static void AddCounter(int[] counter, int[] shape)
         {
@@ -98,18 +116,12 @@ namespace SkLearn.Core.Libraries.Numpy
 
         public bool IsFloatingPoint
         {
-            get
-            {
-                return data.IsFloatingPoint;
-            }
+            get { return data.IsFloatingPoint; }
         }
 
         public int NumberOfBytes
         {
-            get
-            {
-                return data.NumberOfBits / 8;
-            }
+            get { return data.NumberOfBits / 8; }
         }
 
         public NumpyArray<ElementType> Transpose()
@@ -145,15 +157,14 @@ namespace SkLearn.Core.Libraries.Numpy
 
         public int NumberOfDimensions
         {
-            get
-            {
-                return Shape.Length;
-            }
+            get { return Shape.Length; }
         }
 
-        public INumpyArrayWrapper<ElementType> getWrapper()
+        public INumpyArrayWrapper<ElementType> GetWrapper()
         {
             return data;
         }
+
+        
     }
 }

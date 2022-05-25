@@ -9,7 +9,7 @@ namespace SkLearn.Core.Packaging
     /// A delegate to wrap the read functions in BinaryModelPackage.
     /// </summary>
     delegate Object BinaryModelPackagePrimitiveValueReader();
-    
+
     /// <summary>
     /// A enum holding the different types of element that are stored in a binary package.
     /// </summary>
@@ -228,7 +228,7 @@ namespace SkLearn.Core.Packaging
 
             return result;
         }
-        
+
         /// <summary>
         /// Reads a list from the stream.
         /// <returns>The list stored in the stream, or null if it has no value.</returns>
@@ -496,11 +496,13 @@ namespace SkLearn.Core.Packaging
             String[] result = null;
             int hasValue = ReadByte();
 
-            if (hasValue == 1) {
+            if (hasValue == 1)
+            {
                 int count = ReadInteger();
                 result = new String[count];
 
-                for (int i = 0; i < count; i++) {
+                for (int i = 0; i < count; i++)
+                {
                     result[i] = ReadString();
                 }
             }

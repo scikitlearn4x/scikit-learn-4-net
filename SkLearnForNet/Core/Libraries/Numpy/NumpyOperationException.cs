@@ -4,10 +4,8 @@ namespace SkLearn.Core.Libraries.Numpy
 {
     public class NumpyOperationException : Exception
     {
-        public NumpyOperationException(String message)
-            : base(message)
+        public NumpyOperationException(String message) : base(message)
         {
-            
         }
     }
 }

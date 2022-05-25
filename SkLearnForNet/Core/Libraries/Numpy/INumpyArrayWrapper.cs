@@ -8,16 +8,13 @@ namespace SkLearn.Core.Libraries.Numpy
     /// is used for all data types. The INumpyArrayWrapper provide a unified view of the underlying data
     /// types.
     /// </summary>
-    public interface INumpyArrayWrapper<ElementType> where ElementType: struct
+    public interface INumpyArrayWrapper<ElementType> where ElementType : struct
     {
         /// <summary>
         /// Gets the shape of the underlying Numpy array.
         /// <returns>The shape of the array as an int[].</returns>
         /// </summary>
-        int[] Shape
-        {
-            get;
-        }
+        int[] Shape { get; }
 
         /// <summary>
         /// Gets the value of a single element in the numpy array denoted by its indices.
@@ -37,18 +34,12 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <summary>
         /// Returns a boolean indicating that the underlying array type is a floating point one or not.
         /// </summary>
-        bool IsFloatingPoint
-        {
-            get;
-        }
+        bool IsFloatingPoint { get; }
 
         /// <summary>
         /// The space allocated by each element of the numpy array in terms of bits.
         /// </summary>
-        int NumberOfBits
-        {
-            get;
-        }
+        int NumberOfBits { get; }
 
         /// <summary>
         /// Transposes a numpy array by reversing its dimensions.
@@ -68,9 +59,6 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <summary>
         /// Gets the native array containing the numpy array data.
         /// </summary>
-        Object RawArray
-        {
-            get;
-        }
+        Object RawArray { get; }
     }
 }

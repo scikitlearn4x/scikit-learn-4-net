@@ -179,5 +179,21 @@ namespace SkLearn.Test.Core.Libraries
                 }
             }
         }
+
+        [Test]
+        public void TestWrapSubArray()
+        {
+            int[,,] data = new int[,,] { { { 1, 2 }, { 3, 4 } } , { { 5, 6 }, { 7, 8 } }};
+            NumpyArray<int> np = NumpyArrayFactory.From(data);
+
+            NumpyArray<int> sub = np.WrapInnerSubsetArray(1);
+            Assert.AreEqual(2, sub.NumberOfDimensions);
+            Assert.AreEqual(2, sub.Shape[0]);
+            Assert.AreEqual(2, sub.Shape[1]);
+            Assert.AreEqual(5, sub.Get(0, 0));
+            Assert.AreEqual(6, sub.Get(0, 1));
+            Assert.AreEqual(7, sub.Get(1, 0));
+            Assert.AreEqual(8, sub.Get(1, 1));
+        }
     }
 }

@@ -32,7 +32,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Libraries\TestNumpy.cs" />
+    <Compile Include="Core\Libraries\TestNumpyArithmetics.cs" />
     <Compile Include="Core\Libraries\TestNumpyArray.cs" />
+    <Compile Include="Core\Libraries\TestScipy.cs" />
     <Compile Include="Core\Packaging\BinaryModelPackageBaseTypesTests.cs" />
     <Compile Include="Core\Packaging\BinaryModelPackageComplexTypesTests.cs" />
     <Compile Include="TestHelper.cs" />

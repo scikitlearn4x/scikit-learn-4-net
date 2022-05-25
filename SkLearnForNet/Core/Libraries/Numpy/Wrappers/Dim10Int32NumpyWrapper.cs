@@ -28,14 +28,12 @@ namespace SkLearn.Core.Libraries.Numpy.Wrappers
 
         public int Get(params int[] indices)
         {
-            return array[indices[0], indices[1], indices[2], indices[3], indices[4], indices[5], indices[6], indices[7],
-                indices[8], indices[9]];
+            return array[indices[0], indices[1], indices[2], indices[3], indices[4], indices[5], indices[6], indices[7], indices[8], indices[9]];
         }
 
         public void Set(int value, params int[] indices)
         {
-            this.array[indices[0], indices[1], indices[2], indices[3], indices[4], indices[5], indices[6], indices[7],
-                indices[8], indices[9]] = value;
+            this.array[indices[0], indices[1], indices[2], indices[3], indices[4], indices[5], indices[6], indices[7], indices[8], indices[9]] = value;
         }
 
         public bool IsFloatingPoint
@@ -107,8 +105,7 @@ namespace SkLearn.Core.Libraries.Numpy.Wrappers
 
         public NumpyArray<int> Transpose()
         {
-            int[,,,,,,,,,] result = new int[shape[9], shape[8], shape[7], shape[6], shape[5], shape[4], shape[3],
-                shape[2], shape[1], shape[0]];
+            int[,,,,,,,,,] result = new int[shape[9], shape[8], shape[7], shape[6], shape[5], shape[4], shape[3], shape[2], shape[1], shape[0]];
 
             for (int d0 = 0; d0 < this.shape[0]; d0++)
             {
@@ -130,8 +127,7 @@ namespace SkLearn.Core.Libraries.Numpy.Wrappers
                                             {
                                                 for (int d9 = 0; d9 < this.shape[9]; d9++)
                                                 {
-                                                    result[d9, d8, d7, d6, d5, d4, d3, d2, d1, d0] =
-                                                        array[d0, d1, d2, d3, d4, d5, d6, d7, d8, d9];
+                                                    result[d9, d8, d7, d6, d5, d4, d3, d2, d1, d0] = array[d0, d1, d2, d3, d4, d5, d6, d7, d8, d9];
                                                 }
                                             }
                                         }
