@@ -509,5 +509,10 @@ namespace SkLearn.Core.Packaging
 
             return result;
         }
+
+        public bool CanRead()
+        {
+            return stream.Length > 0;
+        }
     }
 }
