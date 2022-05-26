@@ -7,7 +7,7 @@ namespace SkLearn.NaiveBayes
     /// <summary>
     /// Naive Bayes classifier for normal distributed models.
     /// </summary>
-    public class GaussianNaiveBayes
+    public class GaussianNaiveBayes : BaseNaiveBayes
     {
         /// <summary>
         /// The frequency of each class in the training set.
@@ -142,7 +142,7 @@ namespace SkLearn.NaiveBayes
         /// <param name="x">An array-like of shape (n_samples, n_classes).</param>
         /// <returns>The unnormalized posterior log probability of X.</returns>
         /// </summary>
-        protected NumpyArray<Double> JointLogLikelihood(NumpyArray<Double> x)
+        protected override NumpyArray<Double> JointLogLikelihood(NumpyArray<Double> x)
         {
             int count = x.Shape[0];
             int classCount = classCounts.Shape[0];

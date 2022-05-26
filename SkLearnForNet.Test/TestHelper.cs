@@ -17,6 +17,16 @@ namespace SkLearn.Test
                 Assert.AreEqual(expected[i], actual[i]);
             }
         }
+        
+        public static void AreArrayEqual(long[] expected, long[] actual)
+        {
+            Assert.AreEqual(expected.Length, actual.Length);
+
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.AreEqual(expected[i], actual[i]);
+            }
+        }
 
         public static void AssertEqualData(NumpyArray<double> numpyArray, double[] array)
         {
@@ -403,5 +413,28 @@ namespace SkLearn.Test
                 }
             }
         }
+
+        public static string GetAbsolutePathOfBinaryPackage(String path)
+        {
+            return "/Users/yektaie/Desktop/unit_tests/binaries/" + path;
+        }
+
+        public static void AssertEqualPredictions(NumpyArray<long> predictions, long[] rawArray)
+        {
+            long[] preds = (long[]) predictions.GetWrapper().RawArray;
+
+            AreArrayEqual(rawArray, preds);
+        }
+        
+        public static void AssertCorrectFeatureNames(String[] expected, String[] actual)
+        {
+            Assert.AreEqual(expected.Length, actual.Length);
+
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.AreEqual(expected[i], actual[i]);
+            }
+        }
+
     }
 }

@@ -57,7 +57,11 @@ namespace SkLearn.Core.Packaging
             BinaryModelPackage result = null;
             using (Stream stream = new FileStream(path, FileMode.Open))
             {
-                result = FromStream(stream);
+                byte[] content = new byte[stream.Length];
+                stream.Read(content, 0, content.Length);
+
+                MemoryStream ms = new MemoryStream(content);
+                result = FromStream(ms);
             }
 
             return result;

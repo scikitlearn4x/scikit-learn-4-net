@@ -32,6 +32,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classifiers\GaussianNaiveBayesTests.cs" />
     <Compile Include="Core\Libraries\TestNumpy.cs" />
     <Compile Include="Core\Libraries\TestNumpyArithmetics.cs" />
     <Compile Include="Core\Libraries\TestNumpyArray.cs" />

@@ -21,7 +21,7 @@ namespace SkLearn.Core.Packaging.Loaders
         /// <summary>
         /// A map of the fields the loader requires to load an object.
         /// </summary>
-        private Dictionary<String, LoaderFieldInfo> fields = null;
+        private Dictionary<String, LoaderFieldInfo> fields = new Dictionary<String, LoaderFieldInfo>();
 
 
         /// <summary>

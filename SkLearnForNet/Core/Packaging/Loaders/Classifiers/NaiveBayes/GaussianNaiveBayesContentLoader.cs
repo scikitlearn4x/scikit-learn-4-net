@@ -39,13 +39,20 @@ namespace SkLearn.Core.Packaging.Loaders.Classifiers.NaiveBayes
         /// </summary>
         protected override void RegisterSetters()
         {
-            RegisterNumpyArrayField("class_count_", SetClassCount);
-            RegisterNumpyArrayField("classes_", SetClasses);
-            RegisterNumpyArrayField("class_prior_", SetClassPriors);
-            RegisterNumpyArrayField("theta_", SetMeanValues);
-            RegisterNumpyArrayField("var_", SetVarianceValues);
-            RegisterLongField("n_features_in_", SetNumberOfFeatureIn);
-            RegisterStringArrayField("feature_names_in_", SetFeaturesIn);
+            try
+            {
+                RegisterNumpyArrayField("class_count_", SetClassCount);
+                RegisterNumpyArrayField("classes_", SetClasses);
+                RegisterNumpyArrayField("class_prior_", SetClassPriors);
+                RegisterNumpyArrayField("theta_", SetMeanValues);
+                RegisterNumpyArrayField("var_", SetVarianceValues);
+                RegisterLongField("n_features_in_", SetNumberOfFeatureIn);
+                RegisterStringArrayField("feature_names_in_", SetFeaturesIn);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
