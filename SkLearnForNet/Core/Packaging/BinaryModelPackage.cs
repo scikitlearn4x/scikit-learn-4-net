@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using SkLearn.Core.Libraries.Numpy;
 
 namespace SkLearn.Core.Packaging
 {
@@ -82,12 +83,12 @@ namespace SkLearn.Core.Packaging
         /// Reads a byte from the stream.
         /// <returns>A byte value stored in the stream.</returns>
         /// </summary>
-        public sbyte ReadByte()
+        public byte ReadByte()
         {
             int size = 1;
 
             byte[] data = ReadBuffer(size);
-            return (sbyte)data[0];
+            return data[0];
         }
 
         /// <summary>
@@ -211,7 +212,7 @@ namespace SkLearn.Core.Packaging
         /// </summary>
         public Object ReadNumpyArray()
         {
-            Array result = null;
+            INumpyArray result = null;
             int hasValue = ReadByte();
 
             if (hasValue == 1)
@@ -224,10 +225,40 @@ namespace SkLearn.Core.Packaging
                     shape[i] = ReadInteger();
                 }
 
-                result = Array.CreateInstance(GetComponentType(elementType), shape);
+                
+                result = CreateNumpyArray(elementType, shape);
                 int[] indices = new int[shape.Length];
 
-                ReadNumpyDataFromStream(result, indices, 0, shape, elementType);
+                ReadNumpyDataFromStream(result.GetUnderlyingArray(), indices, 0, shape, elementType);
+            }
+
+            return result;
+        }
+        
+        /// <summary>
+        /// The element type of a numpy array is stored as a byte. The value of this byte is defined as
+        /// the enum BinaryModelPackageElementType. This method converts these element type constants into
+        /// respective C# types to create an array.
+        /// <param name="elementType">A byte value read from buffer that specifies the type of numpy array.</param>
+        /// <returns>A Class object used by reflection to create a new array.</returns>
+        /// </summary>
+        private INumpyArray CreateNumpyArray(BinaryModelPackageElementType elementType, int[] shape) {
+            INumpyArray result = null;
+
+            if (elementType == BinaryModelPackageElementType.Byte || elementType == BinaryModelPackageElementType.UnsignedByte) {
+                result = NumpyArrayFactory.ArrayOfInt8WithShape(shape);
+            } else if (elementType == BinaryModelPackageElementType.Short || elementType == BinaryModelPackageElementType.UnsignedShort) {
+                result = NumpyArrayFactory.ArrayOfInt16WithShape(shape);
+            } else if (elementType == BinaryModelPackageElementType.Integer || elementType == BinaryModelPackageElementType.UnsignedInteger) {
+                result = NumpyArrayFactory.ArrayOfInt32WithShape(shape);
+            } else if (elementType == BinaryModelPackageElementType.LongInteger || elementType == BinaryModelPackageElementType.UnsignedLongInteger) {
+                result = NumpyArrayFactory.ArrayOfInt64WithShape(shape);
+            } else if (elementType == BinaryModelPackageElementType.Float) {
+                result = NumpyArrayFactory.ArrayOfFloatWithShape(shape);
+            } else if (elementType == BinaryModelPackageElementType.Double) {
+                result = NumpyArrayFactory.ArrayOfDoubleWithShape(shape);
+            } else {
+                throw new Exception($"Numpy array with element type {(int)elementType} is not supported.");
             }
 
             return result;

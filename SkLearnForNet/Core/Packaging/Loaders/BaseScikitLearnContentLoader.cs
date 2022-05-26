@@ -31,7 +31,7 @@ namespace SkLearn.Core.Packaging.Loaders
         /// </summary>
         public String TypeName
         {
-            get { return this.TypeName; }
+            get { return this.typeName; }
         }
 
         /// <summary>

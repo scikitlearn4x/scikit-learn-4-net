@@ -6,7 +6,7 @@ namespace SkLearn.Core.Libraries.Numpy
     public delegate ElementType NumpyArrayElementOperation<ElementType>(ElementType value);
     public delegate void NumpyArrayElementIterateOperation<ElementType>(ElementType value, int[] index);
 
-    public class NumpyArray<ElementType> where ElementType : struct
+    public class NumpyArray<ElementType> : INumpyArray where ElementType : struct
     {
         private INumpyArrayWrapper<ElementType> data = null;
 
@@ -165,6 +165,10 @@ namespace SkLearn.Core.Libraries.Numpy
             return data;
         }
 
-        
+
+        Array INumpyArray.GetUnderlyingArray()
+        {
+            return (Array)GetWrapper().RawArray;
+        }
     }
 }

@@ -124,7 +124,7 @@ namespace SkLearn.Test.Core.Packaging
         public void TestReadByteNegative()
         {
             byte[] data = ToByteArray(new sbyte[]{ -8 });
-            int expected = -8;
+            int expected = data[0];
 
             int actual = ReadByteFromByteArray(data);
             Assert.AreEqual(expected, actual);
