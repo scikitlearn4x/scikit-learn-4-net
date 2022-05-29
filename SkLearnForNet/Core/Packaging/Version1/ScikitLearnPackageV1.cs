@@ -18,7 +18,7 @@ namespace SkLearn.Core.Packaging.Version1
         /// <summary>
         /// List of the scikit-learn objects of the binary package file.
         /// </summary>
-        private List<Object> primaryContent = null;
+        private Dictionary<String, Object> primaryContent = null;
 
         /// <summary>
         /// Extra information that the developer added to the package file.
@@ -45,13 +45,12 @@ namespace SkLearn.Core.Packaging.Version1
 
         /// <summary>
         /// Get the primary content stored in binary package file.
-        /// <param name="index">Index of the content to retrieve.
-        /// </param>
+        /// <param name="name">Name of the content to retrieve.</param>
         /// <returns>A scikit-learn object that can now be used in Java.</returns>
         /// </summary>
-        public Object GetModel(int index)
+        public Object GetModel(String name)
         {
-            return primaryContent[index];
+            return primaryContent[name];
         }
 
         /// <summary>
@@ -92,11 +91,12 @@ namespace SkLearn.Core.Packaging.Version1
         /// </summary>
         private void LoadFilePrimaryContent(BinaryModelPackage buffer)
         {
-            primaryContent = new List<Object>();
+            primaryContent = new Dictionary<String, Object>();
             foreach (String serializerType in header.SerializerTypes)
             {
                 IScikitLearnContentLoader loader = ScikitLearnContentLoaderFactory.LoaderForType(serializerType);
-                primaryContent.Add(loader.LoadContent(buffer));
+                String name = buffer.ReadString();
+                primaryContent.Add(name, loader.LoadContent(buffer));
             }
         }
 

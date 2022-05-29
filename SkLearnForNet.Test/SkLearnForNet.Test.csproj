@@ -32,7 +32,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classifiers\GaussianNaiveBayesTests.cs" />
+    <Compile Include="Classifiers\Gaussian_Naive_Bayes\GaussianNaiveBayesBaseCaseIncludingFeatureNameTests.cs" />
+    <Compile Include="Classifiers\Gaussian_Naive_Bayes\GaussianNaiveBayesSimplestBaseCaseWithoutCustomizationTests.cs" />
+    <Compile Include="Classifiers\Gaussian_Naive_Bayes\GaussianNaiveBayesWithExplicitPriorAndVarSmoothingTests.cs" />
+    <Compile Include="Classifiers\Gaussian_Naive_Bayes\GaussianNaiveBayesWithExplicitPriorTests.cs" />
+    <Compile Include="Classifiers\Gaussian_Naive_Bayes\GaussianNaiveBayesWithExplicitVarSmoothingTests.cs" />
     <Compile Include="Core\Libraries\TestNumpy.cs" />
     <Compile Include="Core\Libraries\TestNumpyArithmetics.cs" />
     <Compile Include="Core\Libraries\TestNumpyArray.cs" />

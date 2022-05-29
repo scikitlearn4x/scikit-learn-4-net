@@ -30,11 +30,10 @@ namespace SkLearn.Core.Packaging
 
         /// <summary>
         /// Get the primary content stored in binary package file.
-        /// <param name="index">Index of the content to retrieve.
-        /// </param>
+        /// <param name="name">Name of the content to retrieve.</param>
         /// <returns>A scikit-learn object that can now be used in Java.</returns>
         /// </summary>
-        Object GetModel(int index);
+        Object GetModel(String name);
 
         /// <summary>
         /// Loads the binary package from a file.
