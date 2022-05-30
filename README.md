@@ -131,23 +131,7 @@ The regressors are not supported yet.
 scikit-learn for .NET is available as a Nuget package. Simply use the following
 package information to add it as a dependency to your project.
 
-**Gradle**
-```
-dependencies {
-    // Change the version the latest available
-    implementation 'ai.scikitlearn4x:sklearn4jvm:0.0.0.8'
-}
-```
 
-**Maven**
-```
-<dependency>
-  <groupId>ai.scikitlearn4x</groupId>
-  <artifactId>sklearn4jvm</artifactId>
-  <!-- Change the version the latest available -->
-  <version>0.0.0.8</version>
-</dependency>
-```
 
 ## Project Raison d'Être
 
