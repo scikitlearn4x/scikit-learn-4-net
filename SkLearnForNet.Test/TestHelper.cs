@@ -17,7 +17,7 @@ namespace SkLearn.Test
                 Assert.AreEqual(expected[i], actual[i]);
             }
         }
-        
+
         public static void AreArrayEqual(long[] expected, long[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
@@ -421,11 +421,11 @@ namespace SkLearn.Test
 
         public static void AssertEqualPredictions(NumpyArray<long> predictions, long[] rawArray)
         {
-            long[] preds = (long[]) predictions.GetWrapper().RawArray;
+            long[] preds = (long[])predictions.GetWrapper().RawArray;
 
             AreArrayEqual(rawArray, preds);
         }
-        
+
         public static void AssertCorrectFeatureNames(String[] expected, String[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
@@ -435,6 +435,5 @@ namespace SkLearn.Test
                 Assert.AreEqual(expected[i], actual[i]);
             }
         }
-
     }
 }

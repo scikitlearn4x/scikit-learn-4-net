@@ -4,7 +4,8 @@ namespace SkLearn.Core.Libraries.Numpy
 {
     public delegate OutputType NumpyReduceAxisFunction<InputType, OutputType>(InputType[] values);
 
-    public class NumpyArrayOperationWithAxisReduction<InputType, OutputType> where InputType : struct where OutputType : struct
+    public class NumpyArrayOperationWithAxisReduction<InputType, OutputType>
+        where InputType : struct where OutputType : struct
     {
         private NumpyArray<InputType> array;
         private readonly NumpyReduceAxisFunction<InputType, OutputType> reduceAxisFunction;

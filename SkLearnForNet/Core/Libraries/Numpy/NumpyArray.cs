@@ -52,7 +52,8 @@ namespace SkLearn.Core.Libraries.Numpy
         {
             if (indices.Length != Shape.Length)
             {
-                throw new NumpyOperationException("The number of indices provided doesn't match the number of dimensions.");
+                throw new NumpyOperationException(
+                    "The number of indices provided doesn't match the number of dimensions.");
             }
 
             return data.Get(indices);
@@ -89,7 +90,8 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <param name="target">The array that the result should be stored into.</param>
         /// <param name="operation">The operation to be applied on the elements.</param>
         /// </summary>
-        public void ApplyToEachElementAnsSaveToTarget(NumpyArray<ElementType> target, NumpyArrayElementOperation<ElementType> operation)
+        public void ApplyToEachElementAnsSaveToTarget(NumpyArray<ElementType> target,
+            NumpyArrayElementOperation<ElementType> operation)
         {
             int[] shape = data.Shape;
             int[] index = new int[shape.Length];

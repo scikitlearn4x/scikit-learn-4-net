@@ -225,7 +225,7 @@ namespace SkLearn.Core.Packaging
                     shape[i] = ReadInteger();
                 }
 
-                
+
                 result = CreateNumpyArray(elementType, shape);
                 int[] indices = new int[shape.Length];
 
@@ -234,7 +234,7 @@ namespace SkLearn.Core.Packaging
 
             return result;
         }
-        
+
         /// <summary>
         /// The element type of a numpy array is stored as a byte. The value of this byte is defined as
         /// the enum BinaryModelPackageElementType. This method converts these element type constants into
@@ -242,22 +242,40 @@ namespace SkLearn.Core.Packaging
         /// <param name="elementType">A byte value read from buffer that specifies the type of numpy array.</param>
         /// <returns>A Class object used by reflection to create a new array.</returns>
         /// </summary>
-        private INumpyArray CreateNumpyArray(BinaryModelPackageElementType elementType, int[] shape) {
+        private INumpyArray CreateNumpyArray(BinaryModelPackageElementType elementType, int[] shape)
+        {
             INumpyArray result = null;
 
-            if (elementType == BinaryModelPackageElementType.Byte || elementType == BinaryModelPackageElementType.UnsignedByte) {
+            if (elementType == BinaryModelPackageElementType.Byte ||
+                elementType == BinaryModelPackageElementType.UnsignedByte)
+            {
                 result = NumpyArrayFactory.ArrayOfInt8WithShape(shape);
-            } else if (elementType == BinaryModelPackageElementType.Short || elementType == BinaryModelPackageElementType.UnsignedShort) {
+            }
+            else if (elementType == BinaryModelPackageElementType.Short ||
+                     elementType == BinaryModelPackageElementType.UnsignedShort)
+            {
                 result = NumpyArrayFactory.ArrayOfInt16WithShape(shape);
-            } else if (elementType == BinaryModelPackageElementType.Integer || elementType == BinaryModelPackageElementType.UnsignedInteger) {
+            }
+            else if (elementType == BinaryModelPackageElementType.Integer ||
+                     elementType == BinaryModelPackageElementType.UnsignedInteger)
+            {
                 result = NumpyArrayFactory.ArrayOfInt32WithShape(shape);
-            } else if (elementType == BinaryModelPackageElementType.LongInteger || elementType == BinaryModelPackageElementType.UnsignedLongInteger) {
+            }
+            else if (elementType == BinaryModelPackageElementType.LongInteger ||
+                     elementType == BinaryModelPackageElementType.UnsignedLongInteger)
+            {
                 result = NumpyArrayFactory.ArrayOfInt64WithShape(shape);
-            } else if (elementType == BinaryModelPackageElementType.Float) {
+            }
+            else if (elementType == BinaryModelPackageElementType.Float)
+            {
                 result = NumpyArrayFactory.ArrayOfFloatWithShape(shape);
-            } else if (elementType == BinaryModelPackageElementType.Double) {
+            }
+            else if (elementType == BinaryModelPackageElementType.Double)
+            {
                 result = NumpyArrayFactory.ArrayOfDoubleWithShape(shape);
-            } else {
+            }
+            else
+            {
                 throw new Exception($"Numpy array with element type {(int)elementType} is not supported.");
             }
 
@@ -340,7 +358,8 @@ namespace SkLearn.Core.Packaging
         /// <param name="dimension">The current dimension being loaded in the recursion stack.</param>
         /// <param name="shape">The shape of the numpy array.</param>
         /// <param name="elementType">The type of the numpy array's elements.</param>
-        private void ReadNumpyDataFromStream(Array result, int[] indices, int dimension, int[] shape, BinaryModelPackageElementType elementType)
+        private void ReadNumpyDataFromStream(Array result, int[] indices, int dimension, int[] shape,
+            BinaryModelPackageElementType elementType)
         {
             if (dimension == shape.Length - 1)
             {

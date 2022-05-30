@@ -15,18 +15,12 @@ namespace SkLearn.Core.Packaging
         /// include at the minimum the version of the file and the version of scikit-learn used to train the
         /// content of the file.
         /// </summary>
-        IScikitLearnPackageHeader PackageHeader
-        {
-            get;
-        }
+        IScikitLearnPackageHeader PackageHeader { get; }
 
         /// <summary>
         /// Gets a Map[String -> Object] of the extra values stored by the developer when saving the binary package.
         /// </summary>
-        Dictionary<String, Object> ExtraValues
-        {
-            get;
-        }
+        Dictionary<String, Object> ExtraValues { get; }
 
         /// <summary>
         /// Get the primary content stored in binary package file.

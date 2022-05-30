@@ -15,7 +15,8 @@ namespace SkLearn.Core.Libraries
         /// <param name="axis">The axis used by sum for reduction.</param>
         /// <returns>The result, np.log(np.sum(np.exp(a))) calculated in a numerically more stable way.</returns>
         /// </summary>
-        public static NumpyArray<double> LogSumExponent(NumpyArray<double> data, int axis) {
+        public static NumpyArray<double> LogSumExponent(NumpyArray<double> data, int axis)
+        {
             // https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.logsumexp.html
             // Calculates np.log(np.sum(np.exp(a)))
             return Numpy.Numpy.Log(Numpy.Numpy.Sum(Numpy.Numpy.Exp(data), axis));

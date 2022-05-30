@@ -49,11 +49,11 @@ namespace SkLearn.Test.Core.Packaging
             float actual = ReadFloatFromByteArray(data);
             Assert.AreEqual(expected, actual);
         }
-        
+
         [Test]
         public void TestReadFloatEPositive()
         {
-            byte[] data = ToByteArray(new sbyte[]{ 1, 77, -8, 45, 64 });
+            byte[] data = ToByteArray(new sbyte[] { 1, 77, -8, 45, 64 });
             float expected = 2.71828f;
 
             float actual = ReadFloatFromByteArray(data);
@@ -63,7 +63,7 @@ namespace SkLearn.Test.Core.Packaging
         [Test]
         public void TestReadFloatENegative()
         {
-            byte[] data = ToByteArray(new sbyte[]{ 1, 77, -8, 45, -64 });
+            byte[] data = ToByteArray(new sbyte[] { 1, 77, -8, 45, -64 });
             float expected = -2.71828f;
 
             float actual = ReadFloatFromByteArray(data);
@@ -73,7 +73,7 @@ namespace SkLearn.Test.Core.Packaging
         [Test]
         public void TestReadDoublePiPositive()
         {
-            byte[] data = ToByteArray(new sbyte[]{ 1, 111, 18, -125, -64, -54, 33, 9, 64 });
+            byte[] data = ToByteArray(new sbyte[] { 1, 111, 18, -125, -64, -54, 33, 9, 64 });
             double expected = 3.1415f;
 
             double actual = ReadDoubleFromByteArray(data);
@@ -83,7 +83,7 @@ namespace SkLearn.Test.Core.Packaging
         [Test]
         public void TestReadDoublePiNegative()
         {
-            byte[] data = ToByteArray(new sbyte[]{ 1, 111, 18, -125, -64, -54, 33, 9, -64 });
+            byte[] data = ToByteArray(new sbyte[] { 1, 111, 18, -125, -64, -54, 33, 9, -64 });
             double expected = -3.1415f;
 
             double actual = ReadDoubleFromByteArray(data);
@@ -93,7 +93,7 @@ namespace SkLearn.Test.Core.Packaging
         [Test]
         public void TestReadDoubleEPositive()
         {
-            byte[] data = ToByteArray(new sbyte[]{ 1, -112, -9, -86, -107, 9, -65, 5, 64 });
+            byte[] data = ToByteArray(new sbyte[] { 1, -112, -9, -86, -107, 9, -65, 5, 64 });
             double expected = 2.71828f;
 
             double actual = ReadDoubleFromByteArray(data);
@@ -103,7 +103,7 @@ namespace SkLearn.Test.Core.Packaging
         [Test]
         public void TestReadDoubleENegative()
         {
-            byte[] data = ToByteArray(new sbyte[]{ 1, -112, -9, -86, -107, 9, -65, 5, -64 });
+            byte[] data = ToByteArray(new sbyte[] { 1, -112, -9, -86, -107, 9, -65, 5, -64 });
             double expected = -2.71828f;
 
             double actual = ReadDoubleFromByteArray(data);
@@ -123,7 +123,7 @@ namespace SkLearn.Test.Core.Packaging
         [Test]
         public void TestReadByteNegative()
         {
-            byte[] data = ToByteArray(new sbyte[]{ -8 });
+            byte[] data = ToByteArray(new sbyte[] { -8 });
             int expected = data[0];
 
             int actual = ReadByteFromByteArray(data);
@@ -133,42 +133,40 @@ namespace SkLearn.Test.Core.Packaging
         [Test]
         public void TestReadShortIntegers()
         {
-            TestReadShortInteger(10, new byte[]{10, 0});
-            TestReadShortInteger(567, new byte[]{55, 2});
-            TestReadShortInteger(16000, ToByteArray(new sbyte[]{-128, 62}));
-            TestReadShortInteger(-16000, ToByteArray(new sbyte[]{-128, -63}));
+            TestReadShortInteger(10, new byte[] { 10, 0 });
+            TestReadShortInteger(567, new byte[] { 55, 2 });
+            TestReadShortInteger(16000, ToByteArray(new sbyte[] { -128, 62 }));
+            TestReadShortInteger(-16000, ToByteArray(new sbyte[] { -128, -63 }));
         }
 
         [Test]
         public void TestReadIntegers()
         {
-            TestReadInteger(10, new byte[]{10, 0, 0, 0});
-            TestReadInteger(567, new byte[]{55, 2, 0, 0});
-            TestReadInteger(16000, ToByteArray(new sbyte[]{-128, 62, 0, 0}));
-            TestReadInteger(59, new byte[]{59, 0, 0, 0});
-            TestReadInteger(-59, ToByteArray(new sbyte[]{-59, -1, -1, -1}));
-            TestReadInteger(300, new byte[]{44, 1, 0, 0});
-            TestReadInteger(-300, ToByteArray(new sbyte[]{-44, -2, -1, -1}));
-            TestReadInteger(2000000000, ToByteArray(new sbyte[]{0, -108, 53, 119}));
-            TestReadInteger(-2000000000, ToByteArray(new sbyte[]{0, 108, -54, -120}));
-
+            TestReadInteger(10, new byte[] { 10, 0, 0, 0 });
+            TestReadInteger(567, new byte[] { 55, 2, 0, 0 });
+            TestReadInteger(16000, ToByteArray(new sbyte[] { -128, 62, 0, 0 }));
+            TestReadInteger(59, new byte[] { 59, 0, 0, 0 });
+            TestReadInteger(-59, ToByteArray(new sbyte[] { -59, -1, -1, -1 }));
+            TestReadInteger(300, new byte[] { 44, 1, 0, 0 });
+            TestReadInteger(-300, ToByteArray(new sbyte[] { -44, -2, -1, -1 }));
+            TestReadInteger(2000000000, ToByteArray(new sbyte[] { 0, -108, 53, 119 }));
+            TestReadInteger(-2000000000, ToByteArray(new sbyte[] { 0, 108, -54, -120 }));
         }
 
         [Test]
         public void TestReadLongIntegers()
         {
-            TestReadLongInteger(10, new byte[]{10, 0, 0, 0, 0, 0, 0, 0});
-            TestReadLongInteger(567, new byte[]{55, 2, 0, 0, 0, 0, 0, 0});
-            TestReadLongInteger(16000, ToByteArray(new sbyte[]{-128, 62, 0, 0, 0, 0, 0, 0}));
-            TestReadLongInteger(59, new byte[]{59, 0, 0, 0, 0, 0, 0, 0});
-            TestReadLongInteger(-59, ToByteArray(new sbyte[]{-59, -1, -1, -1, -1, -1, -1, -1}));
-            TestReadLongInteger(300, new byte[]{44, 1, 0, 0, 0, 0, 0, 0});
-            TestReadLongInteger(-300, ToByteArray(new sbyte[]{-44, -2, -1, -1, -1, -1, -1, -1}));
-            TestReadLongInteger(2000000000, ToByteArray(new sbyte[]{0, -108, 53, 119, 0, 0, 0, 0}));
-            TestReadLongInteger(-2000000000, ToByteArray(new sbyte[]{0, 108, -54, -120, -1, -1, -1, -1}));
-            TestReadLongInteger(200000000000000000L, ToByteArray(new sbyte[]{0, 0, 20, -69, -16, -118, -58, 2}));
-            TestReadLongInteger(-200000000000000000L, ToByteArray(new sbyte[]{0, 0, -20, 68, 15, 117, 57, -3}));
-
+            TestReadLongInteger(10, new byte[] { 10, 0, 0, 0, 0, 0, 0, 0 });
+            TestReadLongInteger(567, new byte[] { 55, 2, 0, 0, 0, 0, 0, 0 });
+            TestReadLongInteger(16000, ToByteArray(new sbyte[] { -128, 62, 0, 0, 0, 0, 0, 0 }));
+            TestReadLongInteger(59, new byte[] { 59, 0, 0, 0, 0, 0, 0, 0 });
+            TestReadLongInteger(-59, ToByteArray(new sbyte[] { -59, -1, -1, -1, -1, -1, -1, -1 }));
+            TestReadLongInteger(300, new byte[] { 44, 1, 0, 0, 0, 0, 0, 0 });
+            TestReadLongInteger(-300, ToByteArray(new sbyte[] { -44, -2, -1, -1, -1, -1, -1, -1 }));
+            TestReadLongInteger(2000000000, ToByteArray(new sbyte[] { 0, -108, 53, 119, 0, 0, 0, 0 }));
+            TestReadLongInteger(-2000000000, ToByteArray(new sbyte[] { 0, 108, -54, -120, -1, -1, -1, -1 }));
+            TestReadLongInteger(200000000000000000L, ToByteArray(new sbyte[] { 0, 0, 20, -69, -16, -118, -58, 2 }));
+            TestReadLongInteger(-200000000000000000L, ToByteArray(new sbyte[] { 0, 0, -20, 68, 15, 117, 57, -3 }));
         }
 
         private void TestReadShortInteger(int expected, byte[] data)
@@ -221,7 +219,7 @@ namespace SkLearn.Test.Core.Packaging
 
             return binary.ReadByte();
         }
-        
+
         private byte[] ToByteArray(sbyte[] data)
         {
             byte[] result = new byte[data.Length];
@@ -230,7 +228,7 @@ namespace SkLearn.Test.Core.Packaging
             {
                 result[i] = (byte)data[i];
             }
-            
+
             return result;
         }
     }

@@ -45,7 +45,7 @@ namespace SkLearn.Core.Packaging
         private static int ReadFileVersion(String path)
         {
             int result = 0;
-            
+
             using (Stream stream = new FileStream(path, FileMode.Open))
             {
                 BinaryModelPackage buffer = BinaryModelPackage.FromStream(stream);

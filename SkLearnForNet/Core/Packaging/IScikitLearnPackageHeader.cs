@@ -10,17 +10,11 @@ namespace SkLearn.Core.Packaging
         /// <summary>
         /// Gets the version of the binary package file.
         /// </summary>
-        int FileFormatVersion
-        {
-            get;
-        }
+        int FileFormatVersion { get; }
 
         /// <summary>
         /// Gets the version that was used to train the scikit-learn object.
         /// </summary>
-        String ScikitLearnVersion
-        {
-            get;
-        }
+        String ScikitLearnVersion { get; }
     }
 }

@@ -19,17 +19,17 @@ namespace SkLearn.Core.Libraries.Numpy
         /// Number of bytes used to allocate an int.
         /// </summary>
         public const int SIZE_OF_INT_32 = 4;
-        
+
         /// <summary>
         /// Number of bytes used to allocate a long.
         /// </summary>
         public const int SIZE_OF_INT_64 = 8;
-        
+
         /// <summary>
         /// Number of bytes used to allocate a float.
         /// </summary>
         public const int SIZE_OF_FLOAT = 4;
-        
+
         /// <summary>
         /// Number of bytes used to allocate a double.
         /// </summary>
@@ -88,7 +88,8 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <param name="shape">Shape of the desired new array.</param>
         /// <returns>An array of the specified shape and data characteristics.</returns>
         /// </summary>
-        public static NumpyArray<OutputType> CreateArrayOfShapeAndTypeInfo<OutputType>(bool isFloatingPoint, int size, int[] shape) where OutputType : struct
+        public static NumpyArray<OutputType> CreateArrayOfShapeAndTypeInfo<OutputType>(bool isFloatingPoint, int size,
+            int[] shape) where OutputType : struct
         {
             Object result = null;
 

@@ -95,7 +95,6 @@ namespace SkLearn.Core.Packaging.Loaders
         /// Creates a clone of the instance.
         /// <returns>An empty clean instance of the loader.</returns>
         /// </summary>
-
         public abstract IScikitLearnContentLoader Duplicate();
 
         /// <summary>
@@ -207,7 +206,7 @@ namespace SkLearn.Core.Packaging.Loaders
         NumpyArray,
         StringArray,
     }
-    
+
     /// <summary>
     /// Callback to set a double value in scikit-learn object.
     /// </summary>
