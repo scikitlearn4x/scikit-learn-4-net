@@ -1,62 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{90D57FA6-ADCD-4D99-A594-09CDB16511D7}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>SkLearn.Test</RootNamespace>
-    <AssemblyName>SkLearnForNet.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Classifiers\Gaussian_Naive_Bayes\GaussianNaiveBayesBaseCaseIncludingFeatureNameTests.cs" />
-    <Compile Include="Classifiers\Gaussian_Naive_Bayes\GaussianNaiveBayesSimplestBaseCaseWithoutCustomizationTests.cs" />
-    <Compile Include="Classifiers\Gaussian_Naive_Bayes\GaussianNaiveBayesWithExplicitPriorAndVarSmoothingTests.cs" />
-    <Compile Include="Classifiers\Gaussian_Naive_Bayes\GaussianNaiveBayesWithExplicitPriorTests.cs" />
-    <Compile Include="Classifiers\Gaussian_Naive_Bayes\GaussianNaiveBayesWithExplicitVarSmoothingTests.cs" />
-    <Compile Include="Core\Libraries\TestNumpy.cs" />
-    <Compile Include="Core\Libraries\TestNumpyArithmetics.cs" />
-    <Compile Include="Core\Libraries\TestNumpyArray.cs" />
-    <Compile Include="Core\Libraries\TestScipy.cs" />
-    <Compile Include="Core\Packaging\BinaryModelPackageBaseTypesTests.cs" />
-    <Compile Include="Core\Packaging\BinaryModelPackageComplexTypesTests.cs" />
-    <Compile Include="TestHelper.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\" />
-    <Folder Include="Core\Packaging\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SkLearnForNet\SkLearnForNet.csproj">
-      <Project>{68e3770b-838f-4152-be63-bb6324030f31}</Project>
-      <Name>SkLearnForNet</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>SkLearn.Test</RootNamespace>
+        <AssemblyName>SkLearnForNet.Test</AssemblyName>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+        <PackageReference Include="NUnit" Version="3.13.3" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+        <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
+        <PackageReference Include="coverlet.collector" Version="3.1.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SkLearnForNet\SkLearnForNet.csproj" />
+    </ItemGroup>
+
 </Project>
