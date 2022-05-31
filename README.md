@@ -1,3 +1,4 @@
+![Nuget](https://img.shields.io/nuget/v/ai.scikitlearn4net)
 
 Working with Python and the Machine Learning and Data Science ecosystem is fun, but
 when it comes to deployment, you may not want to have to use Python. The goal of this
@@ -131,7 +132,9 @@ The regressors are not supported yet.
 scikit-learn for .NET is available as a Nuget package. Simply use the following
 package information to add it as a dependency to your project.
 
-
+```
+PM> Install-Package ai.scikitlearn4net -Version 0.0.0.1
+```
 
 ## Project Raison d'Être
 
