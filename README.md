@@ -121,11 +121,17 @@ other languages.
 The following classifiers are supported:
 
 * Naive Bayes
-    - Gaussian Naive Bayes (GaussianNB)
+  - Gaussian Naive Bayes (GaussianNB)
+  - Bernoulli Naive Bayes (BernoulliNB)
+  - Categorical Naive Bayes (CategoricalNB)
+  - Complement Naive Bayes (ComplementNB)
+  - Multinomial Naive Bayes (MultinomialNB)
 
 ### Regressors
 
 The regressors are not supported yet.
+
+UPDATE: Gaussian Processes are coming in the next release.
 
 ## Installation
 
