@@ -2,19 +2,47 @@ using System;
 
 namespace SkLearn.Core.Libraries.Numpy
 {
+    /// <summary>
+    /// The interface for a function that performs the reduction of an axis.
+    /// </summary>
+    /// <typeparam name="InputType">Type of the input array.</typeparam>
+    /// <typeparam name="OutputType">Type of the output array.</typeparam>
     public delegate OutputType NumpyReduceAxisFunction<InputType, OutputType>(InputType[] values);
 
+    /// <summary>
+    /// Base class for all the operations that performs an aggregation and reduction on a given
+    /// NumpyArray.
+    /// <typeparam name="InputType">The element type of the input numpy array.</typeparam>
+    /// <typeparam name="OutputType">The element type of the output numpy array.</typeparam>
+    /// </summary>
     public class NumpyArrayOperationWithAxisReduction<InputType, OutputType>
         where InputType : struct where OutputType : struct
     {
+        /// <summary>
+        /// The input numpy array to perform the operation on.
+        /// </summary>
         private NumpyArray<InputType> array;
+        
+        /// <summary>
+        /// The callback that performs the reduction operation.
+        /// </summary>
         private readonly NumpyReduceAxisFunction<InputType, OutputType> reduceAxisFunction;
 
+        /// <summary>
+        /// Instantiate a new object of NumpyArrayOperationWithAxisReduction.
+        /// </summary>
+        /// <param name="reduceAxisFunction">The callback that performs the reduction operation.</param>
         public NumpyArrayOperationWithAxisReduction(NumpyReduceAxisFunction<InputType, OutputType> reduceAxisFunction)
         {
             this.reduceAxisFunction = reduceAxisFunction;
         }
 
+        /// <summary>
+        /// Applies the operation on the numpy array.
+        /// <param name="array">Input array to perform operation on.</param>
+        /// <param name="axis">The axis that should be reduced on.</param>
+        /// <returns>The numpy array that contains the result of the reduction.</returns>
+        /// </summary>
         public NumpyArray<OutputType> Apply(NumpyArray<InputType> array, int axis)
         {
             this.array = array;
@@ -65,6 +93,11 @@ namespace SkLearn.Core.Libraries.Numpy
             return result;
         }
 
+        /// <summary>
+        /// Instantiate the result numpy array.
+        /// <param name="shape">The shape of the desired array.</param>
+        /// <returns>An empty array with the desired specifications.</returns>
+        /// </summary>
         public NumpyArray<OutputType> CreateInstanceResultNumpyArray(int[] shape)
         {
             Type type = typeof(OutputType);

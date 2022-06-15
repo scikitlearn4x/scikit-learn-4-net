@@ -9,6 +9,43 @@ namespace SkLearn.Base
     public abstract class ClassifierMixin
     {
         /// <summary>
+        /// Gets the number of features.
+        /// </summary>
+        public long NumberOfFeatures
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
+        /// Gets the feature names.
+        /// </summary>
+        public String[] FeatureNames
+        {
+            get;
+            internal set;
+        }
+        
+        /// <summary>
+        /// Gets the class counts.
+        /// </summary>
+        public NumpyArray<double> ClassCounts
+        {
+            get;
+            internal set;
+        }
+        
+        /// <summary>
+        /// The list of class IDs.
+        /// Dimension: (class_count)
+        /// </summary>
+        public NumpyArray<long> Classes
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
         /// Compute the unnormalized posterior log probability of X.
         /// I.e. ``log P(c) + log P(x|c)`` for all rows x of X, as an array-like of shape
         /// (n_samples, n_classes).

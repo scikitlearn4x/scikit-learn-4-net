@@ -133,7 +133,7 @@ scikit-learn for .NET is available as a Nuget package. Simply use the following
 package information to add it as a dependency to your project.
 
 ```
-PM> Install-Package ai.scikitlearn4net -Version 0.0.0.1
+PM> Install-Package ai.scikitlearn4net -Version 0.0.3
 ```
 
 ## Project Raison d'Être

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SkLearn.Base;
 using SkLearn.Core.Libraries.Numpy;
 
 namespace SkLearn.Core.Packaging.Loaders
@@ -43,6 +44,11 @@ namespace SkLearn.Core.Packaging.Loaders
         {
             this.typeName = typeName;
             RegisterSetters();
+            
+            if (CreateResultObject() is ClassifierMixin) {
+                RegisterLongField("n_features", SetNumberOfFeatureIn);
+                RegisterStringArrayField("feature_names", SetFeaturesIn);
+            }
         }
 
         /// <summary>
@@ -61,7 +67,7 @@ namespace SkLearn.Core.Packaging.Loaders
                 String name = buffer.ReadString();
                 if (!fields.ContainsKey(name))
                 {
-                    throw new Exception("Package contains an unregistered field name: " + name);
+                    throw new ScikitLearnCoreException("Package contains an unregistered field name: " + name);
                 }
 
                 LoaderFieldInfo info = fields[name];
@@ -85,6 +91,11 @@ namespace SkLearn.Core.Packaging.Loaders
                 {
                     String[] value = buffer.ReadStringArray();
                     ((ScikitLearnLoaderStringArrayFieldSetter<ObjectType>)info.setter)(result, value);
+                }
+                else if (info.fieldType == LoaderFieldInfoType.ListOfNumpyArray)
+                {
+                    List<Object> value = buffer.ReadList();
+                    ((ScikitLearnLoaderListOfNumpyArrayFieldSetter<ObjectType>) info.setter)(result, value);
                 }
             }
 
@@ -120,7 +131,7 @@ namespace SkLearn.Core.Packaging.Loaders
         {
             if (fields.ContainsKey(name))
             {
-                throw new Exception("Field is already added");
+                throw new ScikitLearnCoreException("Field is already added");
             }
 
             LoaderFieldInfo field = new LoaderFieldInfo();
@@ -141,7 +152,7 @@ namespace SkLearn.Core.Packaging.Loaders
         {
             if (fields.ContainsKey(name))
             {
-                throw new Exception("Field is already added");
+                throw new ScikitLearnCoreException("Field is already added");
             }
 
             LoaderFieldInfo field = new LoaderFieldInfo();
@@ -162,7 +173,7 @@ namespace SkLearn.Core.Packaging.Loaders
         {
             if (fields.ContainsKey(name))
             {
-                throw new Exception("Field is already added");
+                throw new ScikitLearnCoreException("Field is already added");
             }
 
             LoaderFieldInfo field = new LoaderFieldInfo();
@@ -183,7 +194,7 @@ namespace SkLearn.Core.Packaging.Loaders
         {
             if (fields.ContainsKey(name))
             {
-                throw new Exception("Field is already added");
+                throw new ScikitLearnCoreException("Field is already added");
             }
 
             LoaderFieldInfo field = new LoaderFieldInfo();
@@ -193,6 +204,67 @@ namespace SkLearn.Core.Packaging.Loaders
 
             fields.Add(name, field);
         }
+        
+        /// <summary>
+        /// Registers a list of numpy array field for the scikit-learn serialized layout.
+        /// <param name="name">Name of the field.</param>
+        /// <param name="setter">The setter callback to load the value of the scikit-learn object.
+        /// </param>
+        /// </summary>
+        protected void RegisterListOfNumpyArrayField(String name, ScikitLearnLoaderListOfNumpyArrayFieldSetter<ObjectType> setter)
+        {
+            if (fields.ContainsKey(name))
+            {
+                throw new ScikitLearnCoreException("Field is already added");
+            }
+
+            LoaderFieldInfo field = new LoaderFieldInfo();
+            field.name = name;
+            field.setter = setter;
+            field.fieldType = LoaderFieldInfoType.ListOfNumpyArray;
+
+            fields.Add(name, field);
+        }
+        
+        /// <summary>
+        /// Sets the list of features names' of the dataset the model was trained on.
+        /// <param name="result">The classifier to be loaded.</param>
+        /// <param name="value">The list of feature names.</param>
+        /// </summary>
+        private void SetFeaturesIn(ObjectType result, String[] value) {
+            if (result is ClassifierMixin mixin) {
+                mixin.FeatureNames = value;
+            } 
+        }
+
+        /// <summary>
+        /// Sets the number of features of the dataset the model was trained on.
+        /// <param name="result">The classifier to be loaded.</param>
+        /// <param name="value">The number of features.</param>
+        /// </summary>
+        private void SetNumberOfFeatureIn(ObjectType result, long value) {
+            if (result is ClassifierMixin mixin) {
+                mixin.NumberOfFeatures = value;
+            }
+        }
+        
+        /// <summary>
+        /// Casts a list of Object to a list of double NumpyArray. 
+        /// </summary>
+        /// <param name="list">List to be converted.</param>
+        /// <returns>The list of double NumpyArray</returns>
+        protected List<NumpyArray<double>> AsListOfDoubleNumpyArray(List<Object> list)
+        {
+            List<NumpyArray<double>> result = new List<NumpyArray<double>>(list.Count);
+
+            foreach (Object o in list)
+            {
+                result.Add((NumpyArray<double>)o);
+            }
+            
+            return result;
+        }
+
     }
 
     /// <summary>
@@ -205,6 +277,7 @@ namespace SkLearn.Core.Packaging.Loaders
         Long,
         NumpyArray,
         StringArray,
+        ListOfNumpyArray,
     }
 
     /// <summary>
@@ -232,12 +305,29 @@ namespace SkLearn.Core.Packaging.Loaders
     public delegate void ScikitLearnLoaderStringArrayFieldSetter<ObjectType>(ObjectType obj, String[] value);
 
     /// <summary>
+    /// Callback to set a list of numpy array value in scikit-learn object.
+    /// </summary>
+    /// <typeparam name="ObjectType">The type of the scikit-learn object.</typeparam>
+    public delegate void ScikitLearnLoaderListOfNumpyArrayFieldSetter<ObjectType>(ObjectType obj, List<Object> value);
+
+    /// <summary>
     /// Data class to hold the layout of the scikit-learn object.
     /// </summary>
     internal class LoaderFieldInfo
     {
+        /// <summary>
+        /// The name of the field.
+        /// </summary>
         public String name = null;
+        
+        /// <summary>
+        /// The type of the field.
+        /// </summary>
         public LoaderFieldInfoType fieldType = LoaderFieldInfoType.None;
+        
+        /// <summary>
+        /// The setting method that sets the loaded value in the classifier.
+        /// </summary>
         public Object setter = null;
     }
 }

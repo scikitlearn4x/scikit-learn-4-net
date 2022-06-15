@@ -46,35 +46,11 @@ namespace SkLearn.Core.Packaging.Loaders.Classifiers.NaiveBayes
                 RegisterNumpyArrayField("class_prior_", SetClassPriors);
                 RegisterNumpyArrayField("theta_", SetMeanValues);
                 RegisterNumpyArrayField("var_", SetVarianceValues);
-                RegisterLongField("n_features_in_", SetNumberOfFeatureIn);
-                RegisterStringArrayField("feature_names_in_", SetFeaturesIn);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-        }
-
-        /// <summary>
-        /// Sets the list of features names' of the dataset the model was trained on.
-        /// <param name="result">The classifier to be loaded.</param>
-        /// <param name="value">The list of feature names.
-        /// </param>
-        /// </summary>
-        private void SetFeaturesIn(GaussianNaiveBayes result, String[] value)
-        {
-            result.FeatureNamesIn = value;
-        }
-
-        /// <summary>
-        /// Sets the number of features of the dataset the model was trained on.
-        /// <param name="result">The classifier to be loaded.</param>
-        /// <param name="value">The number of features.
-        /// </param>
-        /// </summary>
-        private void SetNumberOfFeatureIn(GaussianNaiveBayes result, long value)
-        {
-            result.NumberOfFeatures = ((int)value);
         }
 
         /// <summary>

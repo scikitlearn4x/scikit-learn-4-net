@@ -2,4421 +2,2068 @@ using System;
 using NUnit.Framework;
 using SkLearn.Core.Libraries.Numpy;
 using SkLearn.Core.Packaging;
-using SkLearn.NaiveBayes;
-
-namespace SkLearn.Test.Classifiers.Gaussian_Naive_Bayes
-{
-    [TestFixture]
-    public class GaussianNaiveBayesWithExplicitPriorAndVarSmoothingTests
-    {
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.20.0 on python 3.5.6
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_5_6WithSkLearn0_20_0OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.0/3.5/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.0", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_5_6WithSkLearn0_20_0OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.0/3.5/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.0", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_5_6WithSkLearn0_20_0OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.20.0/3.5/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.0", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.20.0 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_0OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.0/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.0", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_0OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.0/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.0", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_0OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.20.0/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.0", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.20.0 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_0OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.0/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.0", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_0OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.0/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.0", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_0OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.20.0/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.0", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.20.1 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.20.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.20.1 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.20.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.20.2 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.20.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.20.2 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.20.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.20.3 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_3OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.3/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_3OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.3/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_20_3OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.20.3/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.20.3 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_3OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.3/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_3OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.20.3/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_20_3OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.20.3/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.20.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.21.1 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_21_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_21_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_21_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.21.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.21.1 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_21_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_21_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_21_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.21.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.21.2 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_21_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_21_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_21_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.21.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.21.2 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_21_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_21_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_21_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.21.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.21.3 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_21_3OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.3/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_21_3OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.3/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_21_3OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.21.3/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.21.3 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_21_3OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.3/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_21_3OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.21.3/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_21_3OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.21.3/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.21.3", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.22 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_22OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.22/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_22OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.22/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_22OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.22/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.22 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_22OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.22/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_22OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.22/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_22OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.22/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.22.1 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_22_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.22.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_22_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.22.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_22_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.22.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.22.1 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_22_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.22.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_22_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.22.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_22_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.22.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.22.1 on python 3.8.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_22_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.22.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_22_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.22.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_22_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.22.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.22.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.23.1 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_23_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_23_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_23_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.23.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.23.1 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_23_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_23_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_23_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.23.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.23.1 on python 3.8.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_23_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_23_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_23_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.23.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.23.2 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_23_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_23_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_23_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.23.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.23.2 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_23_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_23_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_23_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.23.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.23.2 on python 3.8.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_23_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.2/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_23_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.23.2/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_23_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.23.2/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.23.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 1.1.1 on python 3.9.12
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn1_1_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.1.1/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.1.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn1_1_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.1.1/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.1.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn1_1_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "1.1.1/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.1.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.24.1 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_24_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_24_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_24_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.24.1/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.24.1 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_24_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_24_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_24_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.24.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.24.1 on python 3.8.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_24_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_24_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_24_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.24.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.24.1 on python 3.9.12
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn0_24_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.1/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn0_24_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.1/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn0_24_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.24.1/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.24.2 on python 3.6.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_24_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_24_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_6_13WithSkLearn0_24_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.24.2/3.6/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.24.2 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_24_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_24_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn0_24_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.24.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.24.2 on python 3.8.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_24_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.2/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_24_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.2/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn0_24_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.24.2/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 0.24.2 on python 3.9.12
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn0_24_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.2/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn0_24_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "0.24.2/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn0_24_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "0.24.2/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("0.24.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 1.0.1 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn1_0_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn1_0_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn1_0_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "1.0.1/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 1.0.1 on python 3.8.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn1_0_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn1_0_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn1_0_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "1.0.1/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 1.0.1 on python 3.9.12
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn1_0_1OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.1/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn1_0_1OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.1/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn1_0_1OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "1.0.1/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.1", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 1.0.2 on python 3.7.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn1_0_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn1_0_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_7_13WithSkLearn1_0_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "1.0.2/3.7/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 1.0.2 on python 3.8.13
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn1_0_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.2/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn1_0_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.2/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_8_13WithSkLearn1_0_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "1.0.2/3.8/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 1.0.2 on python 3.9.12
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn1_0_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.2/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn1_0_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.2/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_9_12WithSkLearn1_0_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "1.0.2/3.9/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        // ------------------------------------------------------------------------
-        // Test for scikit-learn 1.0.2 on python 3.10.4
-        // ------------------------------------------------------------------------
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_10_4WithSkLearn1_0_2OnIris()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.2/3.10/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_iris.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("iris", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_10_4WithSkLearn1_0_2OnWine()
-        {
-            String path =
-                TestHelper.GetAbsolutePathOfBinaryPackage(
-                    "1.0.2/3.10/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_wine.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("wine", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-
-        [Test]
-        public void TestWithExplicitPriorAndVarSmoothingOnPython3_10_4WithSkLearn1_0_2OnBreastCancer()
-        {
-            String path = TestHelper.GetAbsolutePathOfBinaryPackage(
-                "1.0.2/3.10/gaussian_naive_bayes_with_explicit_prior_and_var_smoothing_on_breast_cancer.skx");
-            IScikitLearnPackage binaryPackage = ScikitLearnPackageFactory.LoadFromFile(path);
-
-            // Check header values
-            Assert.AreEqual(1, binaryPackage.PackageHeader.FileFormatVersion);
-            Assert.AreEqual("1.0.2", binaryPackage.PackageHeader.ScikitLearnVersion);
-
-            // Check extra values
-            Assert.AreEqual("breast_cancer", binaryPackage.ExtraValues["dataset_name"]);
-
-            // Check actual computed values
-            GaussianNaiveBayes classifier = (GaussianNaiveBayes)binaryPackage.GetModel("classifier_to_test");
-
-            NumpyArray<double> x = (NumpyArray<double>)binaryPackage.ExtraValues["training_data"];
-            NumpyArray<long> gtPredictions = (NumpyArray<long>)binaryPackage.ExtraValues["predictions"];
-            NumpyArray<long> predictions = classifier.Predict(x);
-            TestHelper.AssertEqualPredictions(predictions, (long[])gtPredictions.GetWrapper().RawArray);
-
-            NumpyArray<double> gtProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_probabilities"];
-            NumpyArray<double> probabilities = classifier.PredictProbabilities(x);
-            TestHelper.AssertEqualData(probabilities, (double[,])gtProbabilities.GetWrapper().RawArray);
-
-            NumpyArray<double> gtLogProbabilities =
-                (NumpyArray<double>)binaryPackage.ExtraValues["prediction_log_probabilities"];
-            NumpyArray<double> logProbabilities = classifier.PredictLogProbabilities(x);
-            TestHelper.AssertEqualData(logProbabilities, (double[,])gtLogProbabilities.GetWrapper().RawArray);
-        }
-    }
+using SkLearn.Test.Core.TestTemplate;
+
+namespace SkLearn.Test.Classifiers.Gaussian_Naive_Bayes {
+[TestFixture]
+public class GaussianNaiveBayesWithExplicitPriorAndVarSmoothingTests {
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.20.0 on python 3.5
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_5WithSkLearn0_20_0OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.0";
+		testingTemplate.PythonVersion = "3.5";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_5WithSkLearn0_20_0OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.0";
+		testingTemplate.PythonVersion = "3.5";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_5WithSkLearn0_20_0OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.0";
+		testingTemplate.PythonVersion = "3.5";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.20.0 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_0OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.0";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_0OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.0";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_0OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.0";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.20.0 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_0OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.0";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_0OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.0";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_0OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.0";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.20.1 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.20.1 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.20.2 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.20.2 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.20.3 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_3OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.3";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_3OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.3";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_20_3OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.3";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.20.3 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_3OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.3";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_3OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.3";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_20_3OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.20.3";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.21.1 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_21_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_21_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_21_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.21.1 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_21_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_21_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_21_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.21.2 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_21_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_21_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_21_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.21.2 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_21_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_21_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_21_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.21.3 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_21_3OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.3";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_21_3OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.3";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_21_3OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.3";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.21.3 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_21_3OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.3";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_21_3OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.3";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_21_3OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.21.3";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.22 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_22OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_22OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_22OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.22 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_22OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_22OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_22OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.22.1 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_22_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_22_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_22_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.22.1 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_22_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_22_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_22_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.22.1 on python 3.8
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_22_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_22_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_22_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.22.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.23.1 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_23_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_23_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_23_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.23.1 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_23_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_23_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_23_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.23.1 on python 3.8
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_23_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_23_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_23_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.23.2 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_23_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_23_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_23_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.23.2 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_23_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_23_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_23_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.23.2 on python 3.8
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_23_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.2";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_23_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.2";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_23_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.23.2";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 1.1.1 on python 3.9
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn1_1_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.1.1";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn1_1_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.1.1";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn1_1_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.1.1";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.24.1 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_24_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_24_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_24_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.24.1 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_24_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_24_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_24_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.24.1 on python 3.8
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_24_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_24_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_24_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.24.1 on python 3.9
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn0_24_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn0_24_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn0_24_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.1";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.24.2 on python 3.6
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_24_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_24_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_6WithSkLearn0_24_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.6";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.24.2 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_24_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_24_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn0_24_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.24.2 on python 3.8
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_24_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_24_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn0_24_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 0.24.2 on python 3.9
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn0_24_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn0_24_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn0_24_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "0.24.2";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 1.0.1 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn1_0_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn1_0_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn1_0_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.1";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 1.0.1 on python 3.8
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn1_0_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn1_0_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn1_0_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.1";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 1.0.1 on python 3.9
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn1_0_1OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.1";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn1_0_1OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.1";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn1_0_1OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.1";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 1.0.2 on python 3.7
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn1_0_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn1_0_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_7WithSkLearn1_0_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.7";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 1.0.2 on python 3.8
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn1_0_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn1_0_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_8WithSkLearn1_0_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.8";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 1.0.2 on python 3.9
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn1_0_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn1_0_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_9WithSkLearn1_0_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.9";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	// ------------------------------------------------------------------------
+	// Test for scikit-learn 1.0.2 on python 3.10
+	// ------------------------------------------------------------------------
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_10WithSkLearn1_0_2OnIris() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.10";
+		testingTemplate.DataSetName = "iris";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_10WithSkLearn1_0_2OnWine() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.10";
+		testingTemplate.DataSetName = "wine";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+	[Test]
+	public void TestWithExplicitPriorAndVarSmoothingOnPython3_10WithSkLearn1_0_2OnBreastCancer() {
+		ClassifierTestingTemplateV1 testingTemplate = new ClassifierTestingTemplateV1();
+		
+		testingTemplate.ScikitLearnVersion = "1.0.2";
+		testingTemplate.PythonVersion = "3.10";
+		testingTemplate.DataSetName = "breast_cancer";
+		testingTemplate.ClassifierName = "Gaussian Naive Bayes";
+		testingTemplate.ClassifierConfigurationName = "with explicit prior and var smoothing";
+		testingTemplate.SupportProbability = true;
+		testingTemplate.FeatureNames = null;
+		
+		testingTemplate.Test();
+	}
+
+}
 }

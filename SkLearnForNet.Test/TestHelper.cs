@@ -7,6 +7,7 @@ namespace SkLearn.Test
     public static class TestHelper
     {
         private const double DOUBLE_COMPARE_EPSILON = 0.0000001;
+        public const String TEST_FILES_HOME = "/Volumes/Files/Projects/scikit-learn4x/Test Files"; // Should not end with '/'
 
         public static void AreArrayEqual(int[] expected, int[] actual)
         {

@@ -41,8 +41,15 @@ namespace SkLearn.Core.Packaging
     /// </summary>
     public class BinaryModelPackage
     {
+        /// <summary>
+        /// The stream to load the binary package from.
+        /// </summary>
         private Stream stream;
 
+        /// <summary>
+        /// Instantiate a new BinaryModelPackage object.
+        /// </summary>
+        /// <param name="stream">The stream to load the binary package from.</param>
         private BinaryModelPackage(Stream stream)
         {
             this.stream = stream;
@@ -276,7 +283,7 @@ namespace SkLearn.Core.Packaging
             }
             else
             {
-                throw new Exception($"Numpy array with element type {(int)elementType} is not supported.");
+                throw new ScikitLearnCoreException($"Numpy array with element type {(int)elementType} is not supported.");
             }
 
             return result;
@@ -436,7 +443,7 @@ namespace SkLearn.Core.Packaging
             }
             else
             {
-                throw new Exception($"Numpy array with element type {(int)elementType} is not supported.");
+                throw new ScikitLearnCoreException($"Numpy array with element type {(int)elementType} is not supported.");
             }
 
             return result;
@@ -514,7 +521,7 @@ namespace SkLearn.Core.Packaging
             }
             else
             {
-                throw new Exception($"Numpy array with element type {(int)elementType} is not supported.");
+                throw new ScikitLearnCoreException($"Numpy array with element type {(int)elementType} is not supported.");
             }
 
             return result;
@@ -535,7 +542,7 @@ namespace SkLearn.Core.Packaging
 
             if (length != size)
             {
-                throw new Exception($"Unable to read {size} bytes from the stream.");
+                throw new ScikitLearnCoreException($"Unable to read {size} bytes from the stream.");
             }
 
             return buffer;
@@ -563,7 +570,11 @@ namespace SkLearn.Core.Packaging
 
             return result;
         }
-
+        
+        /// <summary>
+        /// Checks if there is still available content in the input stream.
+        /// <returns>A boolean indicating if the stream still has content or not.</returns>
+        /// </summary>
         public bool CanRead()
         {
             return stream.Length > 0;

@@ -3,6 +3,9 @@ using SkLearn.Core.Libraries.Numpy.Wrappers;
 
 namespace SkLearn.Core.Libraries.Numpy
 {
+    /// <summary>
+    /// A factory class that facilitate the creation of NumpyArrays.
+    /// </summary>
     public partial class NumpyArrayFactory
     {
         /// <summary>
@@ -655,7 +658,7 @@ namespace SkLearn.Core.Libraries.Numpy
                     shape[8], shape[9]]);
             }
 
-            throw new NotImplementedException();
+            throw new NumpyOperationException("The shape specified is not supported; only arrays less than 10 dimensions are supported.");
         }
 
         /// <summary>
@@ -708,7 +711,7 @@ namespace SkLearn.Core.Libraries.Numpy
                     shape[8], shape[9]]);
             }
 
-            throw new NotImplementedException();
+            throw new NumpyOperationException("The shape specified is not supported; only arrays less than 10 dimensions are supported.");
         }
 
         /// <summary>
@@ -761,7 +764,7 @@ namespace SkLearn.Core.Libraries.Numpy
                     shape[8], shape[9]]);
             }
 
-            throw new NotImplementedException();
+            throw new NumpyOperationException("The shape specified is not supported; only arrays less than 10 dimensions are supported.");
         }
 
         /// <summary>
@@ -814,7 +817,7 @@ namespace SkLearn.Core.Libraries.Numpy
                     shape[8], shape[9]]);
             }
 
-            throw new NotImplementedException();
+            throw new NumpyOperationException("The shape specified is not supported; only arrays less than 10 dimensions are supported.");
         }
 
         /// <summary>
@@ -867,7 +870,7 @@ namespace SkLearn.Core.Libraries.Numpy
                     shape[8], shape[9]]);
             }
 
-            throw new NotImplementedException();
+            throw new NumpyOperationException("The shape specified is not supported; only arrays less than 10 dimensions are supported.");
         }
 
         /// <summary>
@@ -920,7 +923,7 @@ namespace SkLearn.Core.Libraries.Numpy
                     shape[8], shape[9]]);
             }
 
-            throw new NotImplementedException();
+            throw new NumpyOperationException("The shape specified is not supported; only arrays less than 10 dimensions are supported.");
         }
     }
 }

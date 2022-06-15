@@ -30,7 +30,7 @@ namespace SkLearn.Core.Packaging
             }
             else
             {
-                throw new Exception("This version of the file format is not supported.");
+                throw new ScikitLearnCoreException("This version of the file format is not supported.");
             }
 
             return pkg;

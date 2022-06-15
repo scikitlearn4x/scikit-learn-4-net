@@ -30,8 +30,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 return result;
             });
 
-            NumpyArrayOperationWithAxisReduction<double, double> reduction =
-                new NumpyArrayOperationWithAxisReduction<double, double>(reducer);
+            NumpyArrayOperationWithAxisReduction<double, double> reduction = new NumpyArrayOperationWithAxisReduction<double, double>(reducer);
             return reduction.Apply(array, axis);
         }
 
@@ -56,8 +55,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 return result;
             });
 
-            NumpyArrayOperationWithAxisReduction<float, float> reduction =
-                new NumpyArrayOperationWithAxisReduction<float, float>(reducer);
+            NumpyArrayOperationWithAxisReduction<float, float> reduction = new NumpyArrayOperationWithAxisReduction<float, float>(reducer);
             return reduction.Apply(array, axis);
         }
 
@@ -82,8 +80,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 return result;
             });
 
-            NumpyArrayOperationWithAxisReduction<long, long> reduction =
-                new NumpyArrayOperationWithAxisReduction<long, long>(reducer);
+            NumpyArrayOperationWithAxisReduction<long, long> reduction = new NumpyArrayOperationWithAxisReduction<long, long>(reducer);
             return reduction.Apply(array, axis);
         }
 
@@ -108,8 +105,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 return result;
             });
 
-            NumpyArrayOperationWithAxisReduction<int, int> reduction =
-                new NumpyArrayOperationWithAxisReduction<int, int>(reducer);
+            NumpyArrayOperationWithAxisReduction<int, int> reduction = new NumpyArrayOperationWithAxisReduction<int, int>(reducer);
             return reduction.Apply(array, axis);
         }
 
@@ -134,8 +130,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 return result;
             });
 
-            NumpyArrayOperationWithAxisReduction<short, int> reduction =
-                new NumpyArrayOperationWithAxisReduction<short, int>(reducer);
+            NumpyArrayOperationWithAxisReduction<short, int> reduction = new NumpyArrayOperationWithAxisReduction<short, int>(reducer);
             return reduction.Apply(array, axis);
         }
 
@@ -160,8 +155,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 return result;
             });
 
-            NumpyArrayOperationWithAxisReduction<byte, int> reduction =
-                new NumpyArrayOperationWithAxisReduction<byte, int>(reducer);
+            NumpyArrayOperationWithAxisReduction<byte, int> reduction = new NumpyArrayOperationWithAxisReduction<byte, int>(reducer);
             return reduction.Apply(array, axis);
         }
 
@@ -191,8 +185,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 return result;
             });
 
-            NumpyArrayOperationWithAxisReduction<double, long> reduction =
-                new NumpyArrayOperationWithAxisReduction<double, long>(reducer);
+            NumpyArrayOperationWithAxisReduction<double, long> reduction = new NumpyArrayOperationWithAxisReduction<double, long>(reducer);
             return reduction.Apply(array, axis);
         }
 
@@ -204,9 +197,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// </summary>
         public static NumpyArray<double> Exp(NumpyArray<double> array)
         {
-            NumpyArray<double> result =
-                NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<double>(true, NumpyArrayFactory.SIZE_OF_DOUBLE,
-                    array.Shape);
+            NumpyArray<double> result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<double>(true, NumpyArrayFactory.SIZE_OF_DOUBLE, array.Shape);
 
             array.ApplyToEachElementAnsSaveToTarget(result, value => Math.Exp(value));
 
@@ -223,9 +214,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// </summary>
         public static NumpyArray<Double> Log(NumpyArray<double> array)
         {
-            NumpyArray<Double> result =
-                NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<double>(true, NumpyArrayFactory.SIZE_OF_DOUBLE,
-                    array.Shape);
+            NumpyArray<Double> result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<double>(true, NumpyArrayFactory.SIZE_OF_DOUBLE, array.Shape);
 
             array.ApplyToEachElementAnsSaveToTarget(result, value => Math.Log(value));
 
@@ -239,9 +228,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// </summary>
         public static NumpyArray<double> AtLeast2D(double value)
         {
-            NumpyArray<double> result =
-                NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<double>(true, NumpyArrayFactory.SIZE_OF_DOUBLE,
-                    new int[] { 1, 1 });
+            NumpyArray<double> result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<double>(true, NumpyArrayFactory.SIZE_OF_DOUBLE, new int[] { 1, 1 });
             result.Set(value, 0, 0);
 
             return result;
@@ -254,9 +241,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// </summary>
         public static NumpyArray<float> AtLeast2D(float value)
         {
-            NumpyArray<float> result =
-                NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<float>(true, NumpyArrayFactory.SIZE_OF_FLOAT,
-                    new int[] { 1, 1 });
+            NumpyArray<float> result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<float>(true, NumpyArrayFactory.SIZE_OF_FLOAT, new int[] { 1, 1 });
             result.Set(value, 0, 0);
 
             return result;
@@ -269,9 +254,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// </summary>
         public static NumpyArray<long> AtLeast2D(long value)
         {
-            NumpyArray<long> result =
-                NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<long>(false, NumpyArrayFactory.SIZE_OF_INT_64,
-                    new int[] { 1, 1 });
+            NumpyArray<long> result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<long>(false, NumpyArrayFactory.SIZE_OF_INT_64, new int[] { 1, 1 });
             result.Set(value, 0, 0);
 
             return result;
@@ -284,9 +267,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// </summary>
         public static NumpyArray<int> AtLeast2D(int value)
         {
-            NumpyArray<int> result =
-                NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<int>(false, NumpyArrayFactory.SIZE_OF_INT_32,
-                    new int[] { 1, 1 });
+            NumpyArray<int> result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<int>(false, NumpyArrayFactory.SIZE_OF_INT_32, new int[] { 1, 1 });
             result.Set(value, 0, 0);
 
             return result;
@@ -299,9 +280,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// </summary>
         public static NumpyArray<short> AtLeast2D(short value)
         {
-            NumpyArray<short> result =
-                NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<short>(false, NumpyArrayFactory.SIZE_OF_INT_16,
-                    new int[] { 1, 1 });
+            NumpyArray<short> result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<short>(false, NumpyArrayFactory.SIZE_OF_INT_16, new int[] { 1, 1 });
             result.Set(value, 0, 0);
 
             return result;
@@ -314,9 +293,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// </summary>
         public static NumpyArray<byte> AtLeast2D(byte value)
         {
-            NumpyArray<byte> result =
-                NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<byte>(false, NumpyArrayFactory.SIZE_OF_INT_8,
-                    new int[] { 1, 1 });
+            NumpyArray<byte> result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<byte>(false, NumpyArrayFactory.SIZE_OF_INT_8, new int[] { 1, 1 });
             result.Set(value, 0, 0);
 
             return result;
@@ -327,16 +304,14 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <param name="array">The array to be wrapped into a 2 dimensional array.</param>
         /// <returns>A two dimensional array that wraps the given value.</returns>
         /// </summary>
-        public static NumpyArray<ElementType> AtLeast2D<ElementType>(NumpyArray<ElementType> array)
-            where ElementType : struct
+        public static NumpyArray<ElementType> AtLeast2D<ElementType>(NumpyArray<ElementType> array) where ElementType : struct
         {
             // https://github.com/numpy/numpy/blob/v1.22.0/numpy/core/shape_base.py#L81-L132
             NumpyArray<ElementType> result = null;
 
             if (array.NumberOfDimensions == 1)
             {
-                result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<ElementType>(array.IsFloatingPoint,
-                    array.NumberOfBytes, new int[] { 1, array.Shape[0] });
+                result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<ElementType>(array.IsFloatingPoint, array.NumberOfBytes, new int[] { 1, array.Shape[0] });
                 for (int i = 0; i < array.Shape[0]; i++)
                 {
                     result.Set(array.Get(i), 0, i);
@@ -750,8 +725,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <param name="array">The input array to convert.</param>
         /// <typeparam name="Type">Type of the elements in input array.</typeparam>
         /// <returns>The converted numpy array.</returns>
-        public static Object AsArrayOfType<Type>(NumpyArray<Type> array, bool isFloatingPoint, int size)
-            where Type : struct
+        public static Object AsArrayOfType<Type>(NumpyArray<Type> array, bool isFloatingPoint, int size) where Type : struct
         {
             if (isFloatingPoint)
             {
@@ -784,7 +758,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 }
             }
 
-            throw new NotImplementedException();
+            throw new NumpyOperationException("This conversion type is not supported.");
         }
 
 
@@ -838,8 +812,13 @@ namespace SkLearn.Core.Libraries.Numpy
 
             if (effective1 != effective2 && Math.Abs(effective2 - effective1) != 1)
             {
-                throw new NumpyOperationException(
-                    "The effective shape of the two numpy array has different number of dimensions.");
+                throw new NumpyOperationException("The effective shape of the two numpy array has different number of dimensions.");
+            }
+
+            // This check is for the case where 2 arrays are added with shapes: a1: [5,3], a2: [3]
+            if ((shape1.Length > shape2.Length && IsShapeEndingLike(shape1, shape2)) || (shape2.Length > shape1.Length && IsShapeEndingLike(shape2, shape1)))
+            {
+                return;
             }
 
             for (int i = 0; i < effective1; i++)
@@ -852,6 +831,28 @@ namespace SkLearn.Core.Libraries.Numpy
         }
 
         /// <summary>
+        /// Check if the shape 1 later dimensions are the shape as the one specified by shape 2.
+        /// <param name="shape1">The base shape to check.</param>
+        /// <param name="shape2">The shorter shape to check.</param>
+        /// <returns>A boolean indicating if shape 1 ends with shape 2.</returns>
+        /// </summary>
+        private static bool IsShapeEndingLike(int[] shape1, int[] shape2)
+        {
+            bool result = true;
+
+            for (int i = 0; i < shape2.Length; i++)
+            {
+                if (shape2[shape2.Length - i - 1] != shape1[shape1.Length - i - 1])
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// To ease the add implementation, the code assumes that the array with higher dimensions is
         /// on the left-hand side. In case it is not provided in this format, it should be swapped. This
         /// function checks if it is the case or not.
@@ -859,8 +860,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <param name="a2">Array on the right hand-side of the addition.</param>
         /// <returns>A boolean indicating if the values should be swapped or not.</returns>
         /// </summary>
-        private static bool ShouldSwapForAdd<InputType1, InputType2>(NumpyArray<InputType1> a1,
-            NumpyArray<InputType2> a2) where InputType1 : struct where InputType2 : struct
+        private static bool ShouldSwapForAdd<InputType1, InputType2>(NumpyArray<InputType1> a1, NumpyArray<InputType2> a2) where InputType1 : struct where InputType2 : struct
         {
             bool result = false;
             int[] s1 = a1.Shape;
@@ -883,8 +883,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType2">Element type of the array on the right-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The addition of the two arrays.</returns>
-        public static NumpyArray<OutputType> Add<InputType1, InputType2, OutputType>(NumpyArray<InputType1> a1,
-            NumpyArray<InputType2> a2) where InputType1 : struct where InputType2 : struct where OutputType : struct
+        public static NumpyArray<OutputType> Add<InputType1, InputType2, OutputType>(NumpyArray<InputType1> a1, NumpyArray<InputType2> a2) where InputType1 : struct where InputType2 : struct where OutputType : struct
         {
             int sign = 1;
             return AddNumpyArraysWithSign<InputType1, InputType2, OutputType>(a1, a2, sign);
@@ -898,8 +897,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Element type of the array on the left-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The addition of the two values.</returns>
-        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, byte value)
-            where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, byte value) where InputType : struct where OutputType : struct
         {
             NumpyArray<byte> asArray = NumpyArrayFactory.From(new[] { value });
             return Add<InputType, byte, OutputType>(a1, asArray);
@@ -913,8 +911,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Element type of the array on the left-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The addition of the two values.</returns>
-        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, short value)
-            where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, short value) where InputType : struct where OutputType : struct
         {
             NumpyArray<short> asArray = NumpyArrayFactory.From(new[] { value });
             return Add<InputType, short, OutputType>(a1, asArray);
@@ -928,8 +925,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Element type of the array on the left-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The result of the expression.</returns>
-        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, short value)
-            where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, short value) where InputType : struct where OutputType : struct
         {
             NumpyArray<short> asArray = NumpyArrayFactory.From(new[] { (short)-value });
             return Add<InputType, short, OutputType>(a1, asArray);
@@ -943,8 +939,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Element type of the array on the left-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The addition of the two values.</returns>
-        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, int value)
-            where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, int value) where InputType : struct where OutputType : struct
         {
             NumpyArray<int> asArray = NumpyArrayFactory.From(new[] { value });
             return Add<InputType, int, OutputType>(a1, asArray);
@@ -958,8 +953,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Element type of the array on the left-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The result of the expression.</returns>
-        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, int value)
-            where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, int value) where InputType : struct where OutputType : struct
         {
             NumpyArray<int> asArray = NumpyArrayFactory.From(new[] { (int)-value });
             return Add<InputType, int, OutputType>(a1, asArray);
@@ -973,8 +967,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Element type of the array on the left-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The addition of the two values.</returns>
-        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, long value)
-            where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, long value) where InputType : struct where OutputType : struct
         {
             NumpyArray<long> asArray = NumpyArrayFactory.From(new[] { value });
             return Add<InputType, long, OutputType>(a1, asArray);
@@ -988,8 +981,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Element type of the array on the left-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The result of the expression.</returns>
-        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, long value)
-            where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, long value) where InputType : struct where OutputType : struct
         {
             NumpyArray<long> asArray = NumpyArrayFactory.From(new[] { -value });
             return Add<InputType, long, OutputType>(a1, asArray);
@@ -1003,8 +995,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Element type of the array on the left-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The addition of the two values.</returns>
-        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, float value)
-            where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, float value) where InputType : struct where OutputType : struct
         {
             NumpyArray<float> asArray = NumpyArrayFactory.From(new[] { value });
             return Add<InputType, float, OutputType>(a1, asArray);
@@ -1018,8 +1009,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Element type of the array on the left-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The result of the expression.</returns>
-        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, float value)
-            where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, float value) where InputType : struct where OutputType : struct
         {
             NumpyArray<float> asArray = NumpyArrayFactory.From(new[] { -value });
             return Add<InputType, float, OutputType>(a1, asArray);
@@ -1033,8 +1023,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Element type of the array on the left-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The addition of the two values.</returns>
-        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, double value)
-            where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Add<InputType, OutputType>(NumpyArray<InputType> a1, double value) where InputType : struct where OutputType : struct
         {
             NumpyArray<double> asArray = NumpyArrayFactory.From(new[] { value });
             return Add<InputType, double, OutputType>(a1, asArray);
@@ -1048,8 +1037,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Element type of the array on the left-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The result of the expression.</returns>
-        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, double value)
-            where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Subtract<InputType, OutputType>(NumpyArray<InputType> a1, double value) where InputType : struct where OutputType : struct
         {
             NumpyArray<double> asArray = NumpyArrayFactory.From(new[] { -value });
             return Add<InputType, double, OutputType>(a1, asArray);
@@ -1065,10 +1053,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType2">Element type of the array on the right-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The addition of the two arrays.</returns>
-        private static NumpyArray<OutputType> AddNumpyArraysWithSign<InputType1, InputType2, OutputType>(
-            NumpyArray<InputType1> a1, NumpyArray<InputType2> a2, int sign) where InputType1 : struct
-            where InputType2 : struct
-            where OutputType : struct
+        private static NumpyArray<OutputType> AddNumpyArraysWithSign<InputType1, InputType2, OutputType>(NumpyArray<InputType1> a1, NumpyArray<InputType2> a2, int sign) where InputType1 : struct where InputType2 : struct where OutputType : struct
         {
             ValidateDimensionsForAdd(a1.Shape, a2.Shape);
             if (ShouldSwapForAdd(a1, a2))
@@ -1120,8 +1105,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType2">Element type of the array on the right-hand side of the expression.</typeparam>
         /// <typeparam name="OutputType">Element type of the result array.</typeparam>
         /// <returns>The subtraction of the two arrays.</returns>
-        public static NumpyArray<OutputType> Subtract<InputType1, InputType2, OutputType>(NumpyArray<InputType1> a1,
-            NumpyArray<InputType2> a2) where InputType1 : struct where InputType2 : struct where OutputType : struct
+        public static NumpyArray<OutputType> Subtract<InputType1, InputType2, OutputType>(NumpyArray<InputType1> a1, NumpyArray<InputType2> a2) where InputType1 : struct where InputType2 : struct where OutputType : struct
         {
             int sign = -1;
             return AddNumpyArraysWithSign<InputType1, InputType2, OutputType>(a1, a2, sign);
@@ -1135,8 +1119,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <param name="a1">The array on the left-hand side of the expression.</param>
         /// <param name="a2">The array on the right-hand side of the expression.</param>
         /// <param name="sign">The sign is multiplied to the right hand side. The values are either 1 or -1 where -1 is used to implement subtraction.</param>
-        private static void AddInPlace(int[] targetBaseIndex, NumpyArray<double> target, NumpyArray<double> a1,
-            NumpyArray<double> a2, int sign)
+        private static void AddInPlace(int[] targetBaseIndex, NumpyArray<double> target, NumpyArray<double> a1, NumpyArray<double> a2, int sign)
         {
             if (a2.IsSingleValueArray())
             {
@@ -1144,6 +1127,71 @@ namespace SkLearn.Core.Libraries.Numpy
 
                 AddInPlace(targetBaseIndex, target, a1, singleValue * sign);
             }
+            else if (a1.NumberOfDimensions > 1 && a2.NumberOfDimensions == 1)
+            {
+                int[] leftNoneCommonShape = new int[a1.NumberOfDimensions - 1];
+                int[] index = new int[a1.NumberOfDimensions];
+                for (int i = 0; i < leftNoneCommonShape.Length; i++)
+                {
+                    leftNoneCommonShape[i] = a1.Shape[i];
+                }
+
+                int[] counter = new int[leftNoneCommonShape.Length + 1];
+                int rightShape = a2.Shape[0];
+
+                do
+                {
+                    AddCounter(counter, leftNoneCommonShape);
+
+                    for (int i = 0; i < leftNoneCommonShape.Length; i++)
+                    {
+                        index[i] = counter[i];
+                    }
+
+                    for (int i = 0; i < rightShape; i++)
+                    {
+                        index[index.Length - 1] = i;
+
+                        if (target.IsFloatingPoint)
+                        {
+                            if (target.NumberOfBytes == NumpyArrayFactory.SIZE_OF_DOUBLE)
+                            {
+                                double value = (double)a1.Get(index) + sign * (double)a2.Get(i);
+                                target.Set(value, index);
+                            }
+                            else if (target.NumberOfBytes == NumpyArrayFactory.SIZE_OF_FLOAT)
+                            {
+                                float value = (float)a1.Get(index) + sign * (float)a2.Get(i);
+                                target.Set(value, index);
+                            }
+                        }
+                        else
+                        {
+                            if (target.NumberOfBytes == NumpyArrayFactory.SIZE_OF_INT_8)
+                            {
+                                byte value = (byte)((byte)a1.Get(index) + sign * (byte)a2.Get(i));
+                                target.Set(value, index);
+                            }
+                            else if (target.NumberOfBytes == NumpyArrayFactory.SIZE_OF_INT_16)
+                            {
+                                short value = (short)((short)a1.Get(index) + sign * (short)a2.Get(i));
+                                target.Set(value, index);
+                            }
+                            else if (target.NumberOfBytes == NumpyArrayFactory.SIZE_OF_INT_32)
+                            {
+                                int value = (int)a1.Get(index) + sign * (int)a2.Get(i);
+                                target.Set(value, index);
+                            }
+                            else if (target.NumberOfBytes == NumpyArrayFactory.SIZE_OF_INT_64)
+                            {
+                                long value = (long)a1.Get(index) + sign * (long)a2.Get(i);
+                                target.Set(value, index);
+                            }
+                        }
+                    }
+                } while (counter[counter.Length - 1] == 0);
+            }
+
             else if (a1.NumberOfDimensions == 1 && a2.NumberOfDimensions == 1)
             {
                 int firstDim = a1.Shape[0];
@@ -1174,8 +1222,32 @@ namespace SkLearn.Core.Libraries.Numpy
                 for (int i = 0; i < firstDim; i++)
                 {
                     newTargetBaseIndex[newTargetBaseIndex.Length - 1] = i;
-                    AddInPlace(newTargetBaseIndex, target, a1.WrapInnerSubsetArray(i), a2.WrapInnerSubsetArray(i),
-                        sign);
+                    AddInPlace(newTargetBaseIndex, target, a1.WrapInnerSubsetArray(i), a2.WrapInnerSubsetArray(i), sign);
+                }
+            }
+        }
+        
+        /// <summary>
+        /// The numpy array could be multidimensional. To iterate over the element given that the
+        /// dimension is dynamic, a counter is used. This method increase the value of the counter
+        /// to move the index to the next element.
+        /// <param name="counter">The current index.</param>
+        /// <param name="shape">The shape of the array.</param>
+        /// </summary>
+        internal static void AddCounter(int[] counter, int[] shape)
+        {
+            counter[0]++;
+
+            for (int i = 0; i < shape.Length; i++)
+            {
+                if (counter[i] == shape[i])
+                {
+                    counter[i] = 0;
+                    counter[i + 1]++;
+                }
+                else
+                {
+                    break;
                 }
             }
         }
@@ -1187,8 +1259,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <param name="target">The array that stores the result.</param>
         /// <param name="array">The array on the left-hand side of the expression.</param>
         /// <param name="value">The numerical value to add.</param>
-        private static void AddInPlace(int[] targetBaseIndex, NumpyArray<double> target, NumpyArray<double> array,
-            double value)
+        private static void AddInPlace(int[] targetBaseIndex, NumpyArray<double> target, NumpyArray<double> array, double value)
         {
             int[] targetIndex = new int[target.NumberOfDimensions];
             for (int i = 0; i < targetBaseIndex.Length; i++)
@@ -1215,8 +1286,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <param name="a1">The array on the left-hand side of the expression.</param>
         /// <param name="a2">The array on the right-hand side of the expression.</param>
         /// <param name="sign">The sign is multiplied to the right hand side. The values are either 1 or -1 where -1 is used to implement subtraction.</param>
-        private static void AddInPlace(int[] targetBaseIndex, NumpyArray<long> target, NumpyArray<long> a1,
-            NumpyArray<long> a2, int sign)
+        private static void AddInPlace(int[] targetBaseIndex, NumpyArray<long> target, NumpyArray<long> a1, NumpyArray<long> a2, int sign)
         {
             if (a2.IsSingleValueArray())
             {
@@ -1254,8 +1324,7 @@ namespace SkLearn.Core.Libraries.Numpy
                 for (int i = 0; i < firstDim; i++)
                 {
                     newTargetBaseIndex[newTargetBaseIndex.Length - 1] = i;
-                    AddInPlace(newTargetBaseIndex, target, a1.WrapInnerSubsetArray(i), a2.WrapInnerSubsetArray(i),
-                        sign);
+                    AddInPlace(newTargetBaseIndex, target, a1.WrapInnerSubsetArray(i), a2.WrapInnerSubsetArray(i), sign);
                 }
             }
         }
@@ -1267,8 +1336,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <param name="target">The array that stores the result.</param>
         /// <param name="array">The array on the left-hand side of the expression.</param>
         /// <param name="value">The numerical value to add.</param>
-        private static void AddInPlace(int[] targetBaseIndex, NumpyArray<long> target, NumpyArray<long> array,
-            long value)
+        private static void AddInPlace(int[] targetBaseIndex, NumpyArray<long> target, NumpyArray<long> array, long value)
         {
             int[] targetIndex = new int[target.NumberOfDimensions];
             for (int i = 0; i < targetBaseIndex.Length; i++)
@@ -1320,8 +1388,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Type of the elements of the input.</typeparam>
         /// <typeparam name="OutputType">Types of the elements of the result.</typeparam>
         /// <returns>The multiplication of the two values.</returns>
-        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray,
-            byte value) where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, byte value) where InputType : struct where OutputType : struct
         {
             int size = NumpyArrayFactory.SIZE_OF_INT_8;
             bool floatingPoint = false;
@@ -1339,8 +1406,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Type of the elements of the input.</typeparam>
         /// <typeparam name="OutputType">Types of the elements of the result.</typeparam>
         /// <returns>The multiplication of the two values.</returns>
-        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray,
-            short value) where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, short value) where InputType : struct where OutputType : struct
         {
             int size = NumpyArrayFactory.SIZE_OF_INT_16;
             bool floatingPoint = false;
@@ -1358,8 +1424,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Type of the elements of the input.</typeparam>
         /// <typeparam name="OutputType">Types of the elements of the result.</typeparam>
         /// <returns>The multiplication of the two values.</returns>
-        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray,
-            int value) where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, int value) where InputType : struct where OutputType : struct
         {
             int size = NumpyArrayFactory.SIZE_OF_INT_32;
             bool floatingPoint = false;
@@ -1377,8 +1442,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Type of the elements of the input.</typeparam>
         /// <typeparam name="OutputType">Types of the elements of the result.</typeparam>
         /// <returns>The multiplication of the two values.</returns>
-        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray,
-            long value) where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, long value) where InputType : struct where OutputType : struct
         {
             int size = NumpyArrayFactory.SIZE_OF_INT_64;
             bool floatingPoint = false;
@@ -1396,8 +1460,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Type of the elements of the input.</typeparam>
         /// <typeparam name="OutputType">Types of the elements of the result.</typeparam>
         /// <returns>The multiplication of the two values.</returns>
-        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray,
-            float value) where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, float value) where InputType : struct where OutputType : struct
         {
             int size = NumpyArrayFactory.SIZE_OF_FLOAT;
             bool floatingPoint = true;
@@ -1415,8 +1478,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Type of the elements of the input.</typeparam>
         /// <typeparam name="OutputType">Types of the elements of the result.</typeparam>
         /// <returns>The multiplication of the two values.</returns>
-        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray,
-            double value) where InputType : struct where OutputType : struct
+        public static NumpyArray<OutputType> Multiply<InputType, OutputType>(NumpyArray<InputType> numpyArray, double value) where InputType : struct where OutputType : struct
         {
             int size = NumpyArrayFactory.SIZE_OF_DOUBLE;
             bool floatingPoint = true;
@@ -1436,9 +1498,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <typeparam name="InputType">Type of the elements in the input numpy array.</typeparam>
         /// <typeparam name="OutputType">Type of the elements in the result numpy array.</typeparam>
         /// <returns>A numpy array of the multiplication with the element types specified.</returns>
-        private static NumpyArray<OutputType> MultiplyNumpyArrayByNumber<InputType, OutputType>(
-            NumpyArray<InputType> numpyArray, double value, bool floatingPoint, int size)
-            where InputType : struct where OutputType : struct
+        private static NumpyArray<OutputType> MultiplyNumpyArrayByNumber<InputType, OutputType>(NumpyArray<InputType> numpyArray, double value, bool floatingPoint, int size) where InputType : struct where OutputType : struct
         {
             Object result = null;
             if (floatingPoint)
@@ -1521,6 +1581,34 @@ namespace SkLearn.Core.Libraries.Numpy
         public static NumpyArray<double> Divide(NumpyArray<float> numpyArray, double value)
         {
             return Multiply<float, double>(numpyArray, 1.0 / value);
+        }
+        
+        /// <summary>
+        /// Returns the maximum values along an axis.
+        /// See: https://numpy.org/doc/stable/reference/generated/numpy.amax.html
+        /// <param name="array">The input multidimensional array.</param>
+        /// <param name="axis">The axis which the amax should reduce to.</param>
+        /// <returns>Array of maximum into the array. It has the same shape as a.shape with the dimension along axis removed.</returns>
+        /// </summary>
+        public static NumpyArray<double> ArrayMax(NumpyArray<double> array, int axis)
+        {
+            var reducer = new NumpyReduceAxisFunction<double, double>((values) =>
+            {
+                double max = values[0];
+
+                for (int i = 1; i < values.Length; i++)
+                {
+                    if (values[i] > max)
+                    {
+                        max = values[i];
+                    }
+                }
+
+                return max;
+            });
+
+            NumpyArrayOperationWithAxisReduction<double, double> reduction = new NumpyArrayOperationWithAxisReduction<double, double>(reducer);
+            return reduction.Apply(array, axis);
         }
     }
 }

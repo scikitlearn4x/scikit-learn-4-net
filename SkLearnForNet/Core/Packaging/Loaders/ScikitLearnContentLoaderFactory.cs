@@ -23,6 +23,10 @@ namespace SkLearn.Core.Packaging.Loaders
             registeredLoaders = new Dictionary<String, IScikitLearnContentLoader>();
 
             RegisterLoader(new GaussianNaiveBayesContentLoader());
+            RegisterLoader(new BernoulliNaiveBayesContentLoader());
+            RegisterLoader(new CategoricalNaiveBayesContentLoader());
+            RegisterLoader(new ComplementNaiveBayesContentLoader());
+            RegisterLoader(new MultinomialNaiveBayesContentLoader());
         }
 
         /// <summary>
@@ -48,7 +52,7 @@ namespace SkLearn.Core.Packaging.Loaders
                 return registeredLoaders[type];
             }
 
-            throw new Exception($"The loader type '{type}' is not supported.");
+            throw new ScikitLearnCoreException($"The loader type '{type}' is not supported.");
         }
     }
 }

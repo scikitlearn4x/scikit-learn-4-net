@@ -22,7 +22,7 @@ namespace SkLearn.NaiveBayes
         public NumpyArray<double> ClassCounts
         {
             get { return classCounts; }
-            set { classCounts = value; }
+            internal set { classCounts = value; }
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace SkLearn.NaiveBayes
         public NumpyArray<double> ClassPriors
         {
             get { return classPriors; }
-            set { classPriors = value; }
+            internal set { classPriors = value; }
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace SkLearn.NaiveBayes
         public NumpyArray<long> Classes
         {
             get { return classes; }
-            set { classes = value; }
+            internal set { classes = value; }
         }
 
         /// <summary>
@@ -70,35 +70,7 @@ namespace SkLearn.NaiveBayes
         public NumpyArray<double> Priors
         {
             get { return priors; }
-            set { priors = value; }
-        }
-
-        /// <summary>
-        /// Names of features seen during training. Defined only when `X` has feature names that are all strings.
-        /// </summary>
-        private String[] featureNamesIn = null;
-
-        /// <summary>
-        /// Names of features seen during training. Defined only when `X` has feature names that are all strings.
-        /// </summary>
-        public String[] FeatureNamesIn
-        {
-            get { return featureNamesIn; }
-            set { featureNamesIn = value; }
-        }
-
-        /// <summary>
-        /// Number of features seen during training.
-        /// </summary>
-        private int numberOfFeatures = 0;
-
-        /// <summary>
-        /// Number of features seen during training.
-        /// </summary>
-        public int NumberOfFeatures
-        {
-            get { return numberOfFeatures; }
-            set { numberOfFeatures = value; }
+            internal set { priors = value; }
         }
 
         /// <summary>
@@ -114,7 +86,7 @@ namespace SkLearn.NaiveBayes
         public NumpyArray<double> Sigma
         {
             get { return sigma; }
-            set { sigma = value; }
+            internal set { sigma = value; }
         }
 
         /// <summary>
@@ -130,7 +102,7 @@ namespace SkLearn.NaiveBayes
         public NumpyArray<Double> Theta
         {
             get { return theta; }
-            set { theta = value; }
+            internal set { theta = value; }
         }
 
         /// <summary>

@@ -3,6 +3,9 @@ using SkLearn.Core.Libraries.Numpy.Wrappers;
 
 namespace SkLearn.Core.Libraries.Numpy
 {
+    /// <summary>
+    /// A factory class that facilitate the creation of NumpyArrays.
+    /// </summary>
     public partial class NumpyArrayFactory
     {
         /// <summary>
