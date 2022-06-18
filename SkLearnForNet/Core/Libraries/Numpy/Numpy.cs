@@ -14,9 +14,10 @@ namespace SkLearn.Core.Libraries.Numpy
         /// See: https://numpy.org/doc/stable/reference/generated/numpy.sum.html
         /// <param name="array">Input array.</param>
         /// <param name="axis">Axis along which a sum is performed.</param>
+        /// <param name="keepDimensions">A flag to specify whether to keep the reduced dimension in the output.</param>
         /// <returns>An array with the same shape as a, with the specified axis removed.</returns>
         /// </summary>
-        public static NumpyArray<double> Sum(NumpyArray<double> array, int axis)
+        public static NumpyArray<double> Sum(NumpyArray<double> array, int axis, bool keepDimensions)
         {
             var reducer = new NumpyReduceAxisFunction<double, double>((values) =>
             {
@@ -31,7 +32,7 @@ namespace SkLearn.Core.Libraries.Numpy
             });
 
             NumpyArrayOperationWithAxisReduction<double, double> reduction = new NumpyArrayOperationWithAxisReduction<double, double>(reducer);
-            return reduction.Apply(array, axis);
+            return reduction.Apply(array, axis, keepDimensions);
         }
 
         /// <summary>
@@ -39,9 +40,10 @@ namespace SkLearn.Core.Libraries.Numpy
         /// See: https://numpy.org/doc/stable/reference/generated/numpy.sum.html
         /// <param name="array">Input array.</param>
         /// <param name="axis">Axis along which a sum is performed.</param>
+        /// <param name="keepDimensions">A flag to specify whether to keep the reduced dimension in the output.</param>
         /// <returns>An array with the same shape as a, with the specified axis removed.</returns>
         /// </summary>
-        public static NumpyArray<float> Sum(NumpyArray<float> array, int axis)
+        public static NumpyArray<float> Sum(NumpyArray<float> array, int axis, bool keepDimensions)
         {
             var reducer = new NumpyReduceAxisFunction<float, float>((values) =>
             {
@@ -56,7 +58,7 @@ namespace SkLearn.Core.Libraries.Numpy
             });
 
             NumpyArrayOperationWithAxisReduction<float, float> reduction = new NumpyArrayOperationWithAxisReduction<float, float>(reducer);
-            return reduction.Apply(array, axis);
+            return reduction.Apply(array, axis, keepDimensions);
         }
 
         /// <summary>
@@ -64,9 +66,10 @@ namespace SkLearn.Core.Libraries.Numpy
         /// See: https://numpy.org/doc/stable/reference/generated/numpy.sum.html
         /// <param name="array">Input array.</param>
         /// <param name="axis">Axis along which a sum is performed.</param>
+        /// <param name="keepDimensions">A flag to specify whether to keep the reduced dimension in the output.</param>
         /// <returns>An array with the same shape as a, with the specified axis removed.</returns>
         /// </summary>
-        public static NumpyArray<long> Sum(NumpyArray<long> array, int axis)
+        public static NumpyArray<long> Sum(NumpyArray<long> array, int axis, bool keepDimensions)
         {
             var reducer = new NumpyReduceAxisFunction<long, long>((values) =>
             {
@@ -81,7 +84,7 @@ namespace SkLearn.Core.Libraries.Numpy
             });
 
             NumpyArrayOperationWithAxisReduction<long, long> reduction = new NumpyArrayOperationWithAxisReduction<long, long>(reducer);
-            return reduction.Apply(array, axis);
+            return reduction.Apply(array, axis, keepDimensions);
         }
 
         /// <summary>
@@ -89,9 +92,10 @@ namespace SkLearn.Core.Libraries.Numpy
         /// See: https://numpy.org/doc/stable/reference/generated/numpy.sum.html
         /// <param name="array">Input array.</param>
         /// <param name="axis">Axis along which a sum is performed.</param>
+        /// <param name="keepDimensions">A flag to specify whether to keep the reduced dimension in the output.</param>
         /// <returns>An array with the same shape as a, with the specified axis removed.</returns>
         /// </summary>
-        public static NumpyArray<int> Sum(NumpyArray<int> array, int axis)
+        public static NumpyArray<int> Sum(NumpyArray<int> array, int axis, bool keepDimensions)
         {
             var reducer = new NumpyReduceAxisFunction<int, int>((values) =>
             {
@@ -106,7 +110,7 @@ namespace SkLearn.Core.Libraries.Numpy
             });
 
             NumpyArrayOperationWithAxisReduction<int, int> reduction = new NumpyArrayOperationWithAxisReduction<int, int>(reducer);
-            return reduction.Apply(array, axis);
+            return reduction.Apply(array, axis, keepDimensions);
         }
 
         /// <summary>
@@ -114,9 +118,10 @@ namespace SkLearn.Core.Libraries.Numpy
         /// See: https://numpy.org/doc/stable/reference/generated/numpy.sum.html
         /// <param name="array">Input array.</param>
         /// <param name="axis">Axis along which a sum is performed.</param>
+        /// <param name="keepDimensions">A flag to specify whether to keep the reduced dimension in the output.</param>
         /// <returns>An array with the same shape as a, with the specified axis removed.</returns>
         /// </summary>
-        public static NumpyArray<int> Sum(NumpyArray<short> array, int axis)
+        public static NumpyArray<int> Sum(NumpyArray<short> array, int axis, bool keepDimensions)
         {
             var reducer = new NumpyReduceAxisFunction<short, int>((values) =>
             {
@@ -131,7 +136,7 @@ namespace SkLearn.Core.Libraries.Numpy
             });
 
             NumpyArrayOperationWithAxisReduction<short, int> reduction = new NumpyArrayOperationWithAxisReduction<short, int>(reducer);
-            return reduction.Apply(array, axis);
+            return reduction.Apply(array, axis, keepDimensions);
         }
 
         /// <summary>
@@ -139,9 +144,10 @@ namespace SkLearn.Core.Libraries.Numpy
         /// See: https://numpy.org/doc/stable/reference/generated/numpy.sum.html
         /// <param name="array">Input array.</param>
         /// <param name="axis">Axis along which a sum is performed.</param>
+        /// <param name="keepDimensions">A flag to specify whether to keep the reduced dimension in the output.</param>
         /// <returns>An array with the same shape as a, with the specified axis removed.</returns>
         /// </summary>
-        public static NumpyArray<int> Sum(NumpyArray<byte> array, int axis)
+        public static NumpyArray<int> Sum(NumpyArray<byte> array, int axis, bool keepDimensions)
         {
             var reducer = new NumpyReduceAxisFunction<byte, int>((values) =>
             {
@@ -156,7 +162,7 @@ namespace SkLearn.Core.Libraries.Numpy
             });
 
             NumpyArrayOperationWithAxisReduction<byte, int> reduction = new NumpyArrayOperationWithAxisReduction<byte, int>(reducer);
-            return reduction.Apply(array, axis);
+            return reduction.Apply(array, axis, keepDimensions);
         }
 
         /// <summary>
@@ -164,9 +170,10 @@ namespace SkLearn.Core.Libraries.Numpy
         /// See: https://numpy.org/doc/stable/reference/generated/numpy.argmax.html
         /// <param name="array">The input multidimensional array.</param>
         /// <param name="axis">The axis which the argmax should reduce to.</param>
+        /// <param name="keepDimensions">A flag to specify whether to keep the reduced dimension in the output.</param>
         /// <returns>Array of indices into the array. It has the same shape as a.shape with the dimension along axis removed.</returns>
         /// </summary>
-        public static NumpyArray<long> Argmax(NumpyArray<double> array, int axis)
+        public static NumpyArray<long> Argmax(NumpyArray<double> array, int axis, bool keepDimensions)
         {
             var reducer = new NumpyReduceAxisFunction<double, long>((values) =>
             {
@@ -186,7 +193,7 @@ namespace SkLearn.Core.Libraries.Numpy
             });
 
             NumpyArrayOperationWithAxisReduction<double, long> reduction = new NumpyArrayOperationWithAxisReduction<double, long>(reducer);
-            return reduction.Apply(array, axis);
+            return reduction.Apply(array, axis, keepDimensions);
         }
 
         /// <summary>
@@ -1191,7 +1198,6 @@ namespace SkLearn.Core.Libraries.Numpy
                     }
                 } while (counter[counter.Length - 1] == 0);
             }
-
             else if (a1.NumberOfDimensions == 1 && a2.NumberOfDimensions == 1)
             {
                 int firstDim = a1.Shape[0];
@@ -1211,7 +1217,7 @@ namespace SkLearn.Core.Libraries.Numpy
             }
             else
             {
-                int firstDim = target.Shape[0];
+                int firstDim = a1.Shape[0];
 
                 int[] newTargetBaseIndex = new int[targetBaseIndex.Length + 1];
                 for (int i = 0; i < targetBaseIndex.Length; i++)
@@ -1222,11 +1228,19 @@ namespace SkLearn.Core.Libraries.Numpy
                 for (int i = 0; i < firstDim; i++)
                 {
                     newTargetBaseIndex[newTargetBaseIndex.Length - 1] = i;
-                    AddInPlace(newTargetBaseIndex, target, a1.WrapInnerSubsetArray(i), a2.WrapInnerSubsetArray(i), sign);
+                    NumpyArray<double> leftWrap = a1.WrapInnerSubsetArray(i);
+                    NumpyArray<double> rightWrap = null;
+
+                    if (a2.Shape[0] == 1) {
+                        rightWrap = a2.WrapInnerSubsetArray(0);
+                    } else {
+                        rightWrap = a2.WrapInnerSubsetArray(i);
+                    }
+                    AddInPlace(newTargetBaseIndex, target, leftWrap, rightWrap, sign);
                 }
             }
         }
-        
+
         /// <summary>
         /// The numpy array could be multidimensional. To iterate over the element given that the
         /// dimension is dynamic, a counter is used. This method increase the value of the counter
@@ -1313,7 +1327,7 @@ namespace SkLearn.Core.Libraries.Numpy
             }
             else
             {
-                int firstDim = target.Shape[0];
+                int firstDim = a1.Shape[0];
 
                 int[] newTargetBaseIndex = new int[targetBaseIndex.Length + 1];
                 for (int i = 0; i < targetBaseIndex.Length; i++)
@@ -1324,7 +1338,15 @@ namespace SkLearn.Core.Libraries.Numpy
                 for (int i = 0; i < firstDim; i++)
                 {
                     newTargetBaseIndex[newTargetBaseIndex.Length - 1] = i;
-                    AddInPlace(newTargetBaseIndex, target, a1.WrapInnerSubsetArray(i), a2.WrapInnerSubsetArray(i), sign);
+                    NumpyArray<long> leftWrap = a1.WrapInnerSubsetArray(i);
+                    NumpyArray<long> rightWrap = null;
+
+                    if (a2.Shape[0] == 1) {
+                        rightWrap = a2.WrapInnerSubsetArray(0);
+                    } else {
+                        rightWrap = a2.WrapInnerSubsetArray(i);
+                    }
+                    AddInPlace(newTargetBaseIndex, target, leftWrap, rightWrap, sign);
                 }
             }
         }
@@ -1582,15 +1604,16 @@ namespace SkLearn.Core.Libraries.Numpy
         {
             return Multiply<float, double>(numpyArray, 1.0 / value);
         }
-        
+
         /// <summary>
         /// Returns the maximum values along an axis.
         /// See: https://numpy.org/doc/stable/reference/generated/numpy.amax.html
         /// <param name="array">The input multidimensional array.</param>
         /// <param name="axis">The axis which the amax should reduce to.</param>
+        /// <param name="keepDimensions">A flag to specify whether to keep the reduced dimension in the output.</param>
         /// <returns>Array of maximum into the array. It has the same shape as a.shape with the dimension along axis removed.</returns>
         /// </summary>
-        public static NumpyArray<double> ArrayMax(NumpyArray<double> array, int axis)
+        public static NumpyArray<double> ArrayMax(NumpyArray<double> array, int axis, bool keepDimensions)
         {
             var reducer = new NumpyReduceAxisFunction<double, double>((values) =>
             {
@@ -1608,7 +1631,56 @@ namespace SkLearn.Core.Libraries.Numpy
             });
 
             NumpyArrayOperationWithAxisReduction<double, double> reduction = new NumpyArrayOperationWithAxisReduction<double, double>(reducer);
-            return reduction.Apply(array, axis);
+            return reduction.Apply(array, axis, keepDimensions);
+        }
+
+        /// <summary>
+        /// Remove axes of length one from the array.
+        /// </summary>
+        /// <param name="array">The array to squeeze.</param>
+        /// <returns>An array without any dimension of length 1.</returns>
+        public static NumpyArray<double> Squeeze(NumpyArray<double> array)
+        {
+            int desiredDimensions = 0;
+            for (int i = 0; i < array.Shape.Length; i++)
+            {
+                int dim = array.Shape[i];
+                if (dim > 1)
+                {
+                    desiredDimensions++;
+                }
+            }
+
+            int[] shape = new int[desiredDimensions];
+            int[] mapper = new int[desiredDimensions];
+            int indexOnShape = 0;
+            for (int i = 0; i < array.Shape.Length; i++)
+            {
+                int dim = array.Shape[i];
+                if (dim > 1)
+                {
+                    shape[indexOnShape] = dim;
+                    mapper[indexOnShape] = i;
+                    indexOnShape++;
+                }
+            }
+
+            NumpyArray<double> result = NumpyArrayFactory.ArrayOfDoubleWithShape(shape);
+            int[] counter = new int[shape.Length + 1];
+            int[] indexOnInput = new int[array.Shape.Length];
+
+            do
+            {
+                AddCounter(counter, shape);
+                for (int i = 0; i < mapper.Length; i++)
+                {
+                    indexOnInput[mapper[i]] = counter[i];
+                }
+
+                result.Set(array.Get(indexOnInput), counter);
+            } while (counter[counter.Length - 1] == 0);
+
+            return result;
         }
     }
 }

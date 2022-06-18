@@ -32,7 +32,7 @@ namespace SkLearn.NaiveBayes
         public override NumpyArray<long> Predict(NumpyArray<double> x)
         {
             NumpyArray<double> jll = JointLogLikelihood(x);
-            return Numpy.Argmax(jll, 1);
+            return Numpy.Argmax(jll, 1, false);
         }
 
         /// <summary>

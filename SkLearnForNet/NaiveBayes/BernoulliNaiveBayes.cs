@@ -109,7 +109,7 @@ namespace SkLearn.NaiveBayes
             // Compute  neg_prob · (1 - X).T  as  ∑neg_prob - X · neg_prob
             NumpyArray<double> jll = ExtMath.Dot(x, Numpy.Subtract<double, double, double>(featureLogProbabilities, negProb).Transpose());
 
-            jll = Numpy.Add<double, double, double>(jll, Numpy.Add<double, double, double>(this.classLogPrior, Numpy.Sum(negProb, 1)));
+            jll = Numpy.Add<double, double, double>(jll, Numpy.Add<double, double, double>(this.classLogPrior, Numpy.Sum(negProb, 1, false)));
 
             return jll;
         }

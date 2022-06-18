@@ -199,6 +199,11 @@ namespace SkLearn.Test
 
         public static void AssertEqualData(NumpyArray<double> numpyArray, double[,,] array)
         {
+            AssertEqualData(numpyArray, array, DOUBLE_COMPARE_EPSILON);
+        }
+        
+        public static void AssertEqualData(NumpyArray<double> numpyArray, double[,,] array, double epsilon)
+        {
             Assert.AreEqual(3, numpyArray.Shape.Length);
             Assert.AreEqual(array.GetLength(0), numpyArray.Shape[0]);
             Assert.AreEqual(array.GetLength(1), numpyArray.Shape[1]);
@@ -211,7 +216,7 @@ namespace SkLearn.Test
                     for (int k = 0; k < array.GetLength(2); k++)
                     {
                         double diff = Math.Abs(array[i, j, k] - numpyArray.Get(i, j, k));
-                        bool check = diff < DOUBLE_COMPARE_EPSILON;
+                        bool check = diff < epsilon;
 
                         Assert.True(check);
                     }

@@ -25,16 +25,16 @@ namespace SkLearn.Test.Core.Libraries
             };
             NumpyArray<double> array = NumpyArrayFactory.From(data);
 
-            NumpyArray<long> axis0 = Numpy.Argmax(array, 0);
+            NumpyArray<long> axis0 = Numpy.Argmax(array, 0, false);
             long[][] axis0Expected = new long[][]
                 { new long[] { 1, 0, 1, 0, 0 }, new long[] { 0, 0, 1, 1, 0, }, new long[] { 0, 0, 1, 1, 1 } };
             TestHelper.AssertEqualData(axis0, axis0Expected);
 
-            NumpyArray<long> axis1 = Numpy.Argmax(array, 1);
+            NumpyArray<long> axis1 = Numpy.Argmax(array, 1, false);
             long[][] axis1Expected = new long[][] { new long[] { 1, 1, 1, 0, 1 }, new long[] { 2, 0, 1, 1, 2 } };
             TestHelper.AssertEqualData(axis1, axis1Expected);
 
-            NumpyArray<long> axis2 = Numpy.Argmax(array, 2);
+            NumpyArray<long> axis2 = Numpy.Argmax(array, 2, false);
             long[][] axis2Expected = new long[][] { new long[] { 3, 1, 1 }, new long[] { 2, 3, 3 } };
             TestHelper.AssertEqualData(axis2, axis2Expected);
         }
@@ -48,11 +48,11 @@ namespace SkLearn.Test.Core.Libraries
             NumpyArray<double> array = NumpyArrayFactory.From(data);
 
             double[] axis0Expected = { 1.475, 2.505, 2.131, 1.308 };
-            NumpyArray<double> axis0 = Numpy.Sum(array, 0);
+            NumpyArray<double> axis0 = Numpy.Sum(array, 0, false);
             TestHelper.AssertEqualData(axis0, axis0Expected);
 
             double[] axis1Expected = { 2.508, 3.208, 1.703 };
-            NumpyArray<double> axis1 = Numpy.Sum(array, 1);
+            NumpyArray<double> axis1 = Numpy.Sum(array, 1, false);
             TestHelper.AssertEqualData(axis1, axis1Expected);
         }
 

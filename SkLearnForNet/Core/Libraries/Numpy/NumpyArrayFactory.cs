@@ -91,8 +91,7 @@ namespace SkLearn.Core.Libraries.Numpy
         /// <param name="shape">Shape of the desired new array.</param>
         /// <returns>An array of the specified shape and data characteristics.</returns>
         /// </summary>
-        public static NumpyArray<OutputType> CreateArrayOfShapeAndTypeInfo<OutputType>(bool isFloatingPoint, int size,
-            int[] shape) where OutputType : struct
+        public static NumpyArray<OutputType> CreateArrayOfShapeAndTypeInfo<OutputType>(bool isFloatingPoint, int size, int[] shape) where OutputType : struct
         {
             Object result = null;
 

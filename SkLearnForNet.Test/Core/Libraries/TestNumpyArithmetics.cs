@@ -372,5 +372,18 @@ namespace SkLearn.Test.Core.Libraries
             Assert.AreEqual(0.9425335f, array[0, 0]);
             Assert.AreEqual(9.425335f, expected[0, 0]);
         }
+
+        [Test]
+        public void TestAddWhereTheTrailingDimensionsIsTheSame()
+        {
+            double[,,] arr1 = { { { 0.89, 0.74 }, { 0.21, 0.25 } }, { { 0.31, 0.93 }, { 0.67, 0.15 } }, { { 0.04, 0.56 }, { 0.06, 0.42 } } };
+            double[,,] arr2 = { { { 0.44, 0.87 }, { 0.87, 0.98 } } };
+            double[,,] expected = { { { 1.33, 1.61 }, { 1.08, 1.23 } }, { { 0.75, 1.8 }, { 1.54, 1.13 } }, { { 0.48, 1.43 }, { 0.93, 1.4 } } };
+            
+            NumpyArray<double> a = NumpyArrayFactory.From(arr1);
+            NumpyArray<double> b = NumpyArrayFactory.From(arr2);
+            NumpyArray<double> actual = Numpy.Add<double, double, double>(a, b);
+            TestHelper.AssertEqualData(actual, expected, 0.009999999999999);
+        }
     }
 }

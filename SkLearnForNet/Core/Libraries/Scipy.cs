@@ -21,8 +21,7 @@ namespace SkLearn.Core.Libraries
             // Calculates np.log(np.sum(np.exp(a)))
             // return Numpy.Numpy.Log(Numpy.Numpy.Sum(Numpy.Numpy.Exp(data), axis));
             
-            NumpyArray<double> aMaxOriginal = Numpy.Numpy.ArrayMax(data, axis);
-            NumpyArray<double> aMax = To2DArrayShape(aMaxOriginal);
+            NumpyArray<double> aMax = Numpy.Numpy.ArrayMax(data, axis, true);
             aMax.ApplyToEachElement(value => {
                 if (!double.IsFinite(value)) {
                     return 0.0;
@@ -32,9 +31,9 @@ namespace SkLearn.Core.Libraries
             });
 
             NumpyArray<double> tmp = Numpy.Numpy.Exp(Numpy.Numpy.Subtract<double, double, double>(data, aMax));
-            tmp = Numpy.Numpy.Sum(tmp, axis);
+            tmp = Numpy.Numpy.Sum(tmp, axis, false);
             tmp = Numpy.Numpy.Log(tmp);
-            tmp = Numpy.Numpy.Add<double, double, double>(tmp, aMaxOriginal);
+            tmp = Numpy.Numpy.Add<double, double, double>(tmp, Numpy.Numpy.Squeeze(aMax));
 
             return tmp;
         }
