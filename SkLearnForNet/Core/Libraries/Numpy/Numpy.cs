@@ -1,5 +1,6 @@
 using System;
 using System.CodeDom;
+using System.Reflection;
 using SkLearn.Core.Libraries.Numpy.Wrappers;
 
 namespace SkLearn.Core.Libraries.Numpy
@@ -1231,11 +1232,15 @@ namespace SkLearn.Core.Libraries.Numpy
                     NumpyArray<double> leftWrap = a1.WrapInnerSubsetArray(i);
                     NumpyArray<double> rightWrap = null;
 
-                    if (a2.Shape[0] == 1) {
+                    if (a2.Shape[0] == 1)
+                    {
                         rightWrap = a2.WrapInnerSubsetArray(0);
-                    } else {
+                    }
+                    else
+                    {
                         rightWrap = a2.WrapInnerSubsetArray(i);
                     }
+
                     AddInPlace(newTargetBaseIndex, target, leftWrap, rightWrap, sign);
                 }
             }
@@ -1341,11 +1346,15 @@ namespace SkLearn.Core.Libraries.Numpy
                     NumpyArray<long> leftWrap = a1.WrapInnerSubsetArray(i);
                     NumpyArray<long> rightWrap = null;
 
-                    if (a2.Shape[0] == 1) {
+                    if (a2.Shape[0] == 1)
+                    {
                         rightWrap = a2.WrapInnerSubsetArray(0);
-                    } else {
+                    }
+                    else
+                    {
                         rightWrap = a2.WrapInnerSubsetArray(i);
                     }
+
                     AddInPlace(newTargetBaseIndex, target, leftWrap, rightWrap, sign);
                 }
             }
@@ -1400,6 +1409,115 @@ namespace SkLearn.Core.Libraries.Numpy
                 if (type == typeof(short)) size = Math.Max(NumpyArrayFactory.SIZE_OF_INT_16, size);
                 if (type == typeof(byte)) size = Math.Max(NumpyArrayFactory.SIZE_OF_INT_8, size);
             }
+        }
+
+        /// <summary>
+        /// Multiplies two numpy arrays.
+        /// <param name="a1">Left-hand side of the expression.</param>
+        /// <param name="a2">Right-hand side of the expression.</param>
+        /// <returns>The multiplication result.</returns>
+        /// </summary>
+        public static NumpyArray<double> Multiply(NumpyArray<double> a1, NumpyArray<double> a2)
+        {
+            ValidateDimensionsForAdd(a1.Shape, a2.Shape);
+            if (ShouldSwapForAdd(a1, a2))
+            {
+                return Multiply(a2, a1);
+            }
+
+            NumpyArray<double> result = NumpyArrayFactory.ArrayOfDoubleWithShape(a1.Shape);
+            MultiplyInPlace(result, a1, a2);
+            return result;
+        }
+
+        /// <summary>
+        /// Multiplies two numpy array and stores the result into a target array.
+        /// <param name="target">The target array that stores the results.</param>
+        /// <param name="a1">The left-hand side of the expression.</param>
+        /// <param name="a2">The right-hand side of the expression.
+        /// </param>
+        /// </summary>
+        private static void MultiplyInPlace(NumpyArray<double> target, NumpyArray<double> a1, NumpyArray<double> a2)
+        {
+            if (a2.IsSingleValueArray())
+            {
+                double singleValue = a2.GetSingleValue();
+                MultiplyInPlace(target, a1, singleValue);
+            }
+            else if (a1.NumberOfDimensions > 1 && a2.NumberOfDimensions == 1)
+            {
+                int[] leftNoneCommonShape = new int[a1.NumberOfDimensions - 1];
+                int[] index = new int[a1.NumberOfDimensions];
+                for (int i = 0; i < leftNoneCommonShape.Length; i++)
+                {
+                    leftNoneCommonShape[i] = a1.Shape[i];
+                }
+
+                int[] counter = new int[leftNoneCommonShape.Length + 1];
+                int rightShape = a2.Shape[0];
+
+                do
+                {
+                    AddCounter(counter, leftNoneCommonShape);
+
+                    for (int i = 0; i < leftNoneCommonShape.Length; i++)
+                    {
+                        index[i] = counter[i];
+                    }
+
+                    for (int i = 0; i < rightShape; i++)
+                    {
+                        index[index.Length - 1] = i;
+                        double value = a1.Get(index) * a2.Get(i);
+
+                        target.Set(value, index);
+                    }
+                } while (counter[counter.Length - 1] == 0);
+            }
+            else if (a1.NumberOfDimensions == 1 && a2.NumberOfDimensions == 1)
+            {
+                int firstDim = target.Shape[0];
+
+                for (int i = 0; i < firstDim; i++)
+                {
+                    double value = a1.Get(i) * a2.Get(i);
+
+                    target.Set(value, i);
+                }
+            }
+            else
+            {
+                int firstDim = target.Shape[0];
+
+                for (int i = 0; i < firstDim; i++)
+                {
+                    NumpyArray<double> leftWrap = a1.WrapInnerSubsetArray(i);
+                    NumpyArray<double> rightWrap = null;
+
+                    if (a2.Shape[0] == 1)
+                    {
+                        rightWrap = a2.WrapInnerSubsetArray(0);
+                    }
+                    else
+                    {
+                        rightWrap = a2.WrapInnerSubsetArray(i);
+                    }
+
+                    MultiplyInPlace(target.WrapInnerSubsetArray(i), leftWrap, rightWrap);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Multiplies a double value by a numpy array.
+        /// <param name="target">The array that stores the calculation.</param>
+        /// <param name="array">The left-hand side of the expression.</param>
+        /// <param name="value">The value to be multiplied by.
+        /// </param>
+        /// </summary>
+        private static void MultiplyInPlace(NumpyArray<double> target, NumpyArray<double> array, double value)
+        {
+            array.ApplyToEachElementAnsSaveToTarget(target, element => value * (double)element);
         }
 
         /// <summary>
@@ -1551,6 +1669,127 @@ namespace SkLearn.Core.Libraries.Numpy
         }
 
         /// <summary>
+        /// Divides two numpy arrays.
+        /// <param name="a1">Left-hand side of the expression.</param>
+        /// <param name="a2">Right-hand side of the expression.</param>
+        /// <returns>The multiplication result.</returns>
+        /// </summary>
+        public static NumpyArray<double> Divide(NumpyArray<double> a1, NumpyArray<double> a2)
+        {
+            ValidateDimensionsForAdd(a1.Shape, a2.Shape);
+            if (ShouldSwapForAdd(a1, a2))
+            {
+                throw new NumpyOperationException("This division is not supported.");
+            }
+
+            bool isFloatingPoint = a1.IsFloatingPoint || a2.IsFloatingPoint;
+            int size = Math.Max(a1.NumberOfBytes, a2.NumberOfBytes);
+
+            if (!a1.IsFloatingPoint)
+            {
+                size = a2.NumberOfBytes;
+            }
+            else if (!a2.IsFloatingPoint)
+            {
+                size = a1.NumberOfBytes;
+            }
+
+            NumpyArray<double> result = NumpyArrayFactory.ArrayOfDoubleWithShape(a1.Shape);
+            DivideInPlace(result, a1, a2);
+            return result;
+        }
+
+        /// <summary>
+        /// Divides two numpy array and stores the result into a target array.
+        /// <param name="target">The target array that stores the results.</param>
+        /// <param name="a1">The left-hand side of the expression.</param>
+        /// <param name="a2">The right-hand side of the expression.</param>
+        /// </summary>
+        private static void DivideInPlace(NumpyArray<double> target, NumpyArray<double> a1, NumpyArray<double> a2)
+        {
+            if (a2.IsSingleValueArray())
+            {
+                double singleValue = a2.GetSingleValue();
+                DivideInPlace(target, a1, singleValue);
+            }
+            else if (a1.NumberOfDimensions > 1 && a2.NumberOfDimensions == 1)
+            {
+                int[] leftNoneCommonShape = new int[a1.NumberOfDimensions - 1];
+                int[] index = new int[a1.NumberOfDimensions];
+                for (int i = 0; i < leftNoneCommonShape.Length; i++)
+                {
+                    leftNoneCommonShape[i] = a1.Shape[i];
+                }
+
+                int[] counter = new int[leftNoneCommonShape.Length + 1];
+                int rightShape = a2.Shape[0];
+
+                do
+                {
+                    AddCounter(counter, leftNoneCommonShape);
+
+                    for (int i = 0; i < leftNoneCommonShape.Length; i++)
+                    {
+                        index[i] = counter[i];
+                    }
+
+                    for (int i = 0; i < rightShape; i++)
+                    {
+                        index[index.Length - 1] = i;
+                        double value = 0;
+                        value = a1.Get(index) / a2.Get(i);
+
+                        target.Set(value, index);
+                    }
+                } while (counter[counter.Length - 1] == 0);
+            }
+            else if (a1.NumberOfDimensions == 1 && a2.NumberOfDimensions == 1)
+            {
+                int firstDim = target.Shape[0];
+
+                for (int i = 0; i < firstDim; i++)
+                {
+                    double value = a1.Get(i) / a2.Get(i);
+
+                    target.Set(value, i);
+                }
+            }
+            else
+            {
+                int firstDim = target.Shape[0];
+
+                for (int i = 0; i < firstDim; i++)
+                {
+                    NumpyArray<double> leftWrap = a1.WrapInnerSubsetArray(i);
+                    NumpyArray<double> rightWrap = null;
+
+                    if (a2.Shape[0] == 1)
+                    {
+                        rightWrap = a2.WrapInnerSubsetArray(0);
+                    }
+                    else
+                    {
+                        rightWrap = a2.WrapInnerSubsetArray(i);
+                    }
+
+                    DivideInPlace(target.WrapInnerSubsetArray(i), leftWrap, rightWrap);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Divides a double value by a numpy array.
+        /// <param name="target">The array that stores the calculation.</param>
+        /// <param name="array">The left-hand side of the expression.</param>
+        /// <param name="value">The value to be divided by.
+        /// </param>
+        /// </summary>
+        private static void DivideInPlace(NumpyArray<double> target, NumpyArray<double> array, double value)
+        {
+            array.ApplyToEachElementAnsSaveToTarget(target, element => ((double)element) / value);
+        }
+
+        /// <summary>
         /// Divides the double elements of a numpy array by a long given value.
         /// </summary>
         /// <param name="numpyArray">Numpy array to divide values.</param>
@@ -1679,6 +1918,74 @@ namespace SkLearn.Core.Libraries.Numpy
 
                 result.Set(array.Get(indexOnInput), counter);
             } while (counter[counter.Length - 1] == 0);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Clip (limit) the values in an array.
+        /// Given an interval, values outside the interval are clipped to the interval edges.
+        /// For example, if an interval of [0, 1] is specified, values smaller than 0 become 0,
+        /// and values larger than 1 become 1.
+        /// Equivalent to but faster than np.minimum(a_max, np.maximum(a, a_min)).
+        /// <param name="array">Array containing elements to clip.</param>
+        /// <param name="min">The minimum value to clip.</param>
+        /// <param name="max">The maximum value to clip.</param>
+        /// <returns>An array with the elements of array, but where values less than min are
+        /// replaced with min, and those larger than max with max.</returns>
+        /// </summary>
+        public static NumpyArray<double> Clip(NumpyArray<double> array, double min, double max)
+        {
+            NumpyArray<double> result = NumpyArrayFactory.ArrayOfDoubleWithShape(array.Shape);
+
+            array.ApplyToEachElementAnsSaveToTarget(result, value =>
+            {
+                if (value > max)
+                {
+                    return max;
+                }
+                else if (value < min)
+                {
+                    return min;
+                }
+
+                return value;
+            });
+
+            return result;
+        }
+
+        /// <summary>
+        /// Calculate the absolute value element-wise.
+        /// <param name="array">Input array.</param>
+        /// <returns>An ndarray containing the absolute value of each element in x.</returns>
+        /// </summary>
+        public static NumpyArray<DataType> Abs<DataType>(NumpyArray<DataType> array) where DataType : struct
+        {
+            NumpyArray<DataType> result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<DataType>(array.IsFloatingPoint, array.NumberOfBytes, array.Shape);
+            NumpyArrayElementOperation<DataType> absOperation = null;
+            MethodInfo abs = typeof(Math).GetMethod("Abs", BindingFlags.Public | BindingFlags.Static);
+
+            absOperation = value => (DataType)abs.Invoke(null, new[] { new[] { value } });
+            array.ApplyToEachElementAnsSaveToTarget(result, absOperation);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Return the non-negative square-root of an array, element-wise.
+        /// <param name="array">The values whose square-roots are required.</param>
+        /// <returns>An array of the same shape as x, containing the positive square-root
+        /// of each element in x.</returns>
+        /// </summary>
+        public static NumpyArray<DataType> Sqrt<DataType>(NumpyArray<DataType> array) where DataType : struct
+        {
+            NumpyArray<DataType> result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<DataType>(array.IsFloatingPoint, array.NumberOfBytes, array.Shape);
+            NumpyArrayElementOperation<DataType> absOperation = null;
+            MethodInfo sqrt = typeof(Math).GetMethod("Sqrt", BindingFlags.Public | BindingFlags.Static);
+
+            absOperation = value => (DataType)sqrt.Invoke(null, new[] { new[] { value } });
+            array.ApplyToEachElementAnsSaveToTarget(result, absOperation);
 
             return result;
         }

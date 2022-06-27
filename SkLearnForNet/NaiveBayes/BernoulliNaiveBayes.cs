@@ -94,7 +94,7 @@ namespace SkLearn.NaiveBayes
             
              return jll
              */
-            x = Preprocessing.BinarizeInput(x, binarizationThreshold);
+            x = Preprocessings.BinarizeInput(x, binarizationThreshold);
 
             int n_features = this.featureLogProbabilities.Shape[1];
             int n_features_X = x.Shape[1];
