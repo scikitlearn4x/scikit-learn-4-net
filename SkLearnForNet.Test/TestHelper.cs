@@ -43,6 +43,17 @@ namespace SkLearn.Test
             }
         }
 
+        public static void AssertEqualData(NumpyArray<long> numpyArray, long[] array)
+        {
+            Assert.AreEqual(1, numpyArray.Shape.Length);
+            Assert.AreEqual(array.Length, numpyArray.Shape[0]);
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                Assert.AreEqual(array[i], numpyArray.Get(i));
+            }
+        }
+
         public static void AssertEqualData(NumpyArray<long> numpyArray, long[][] array)
         {
             Assert.AreEqual(2, numpyArray.Shape.Length);
@@ -54,6 +65,21 @@ namespace SkLearn.Test
                 for (int j = 0; j < array[i].Length; j++)
                 {
                     Assert.AreEqual(array[i][j], numpyArray.Get(i, j));
+                }
+            }
+        }
+
+        public static void AssertEqualData(NumpyArray<long> numpyArray, long[,] array)
+        {
+            Assert.AreEqual(2, numpyArray.Shape.Length);
+            Assert.AreEqual(array.GetLength(0), numpyArray.Shape[0]);
+            Assert.AreEqual(array.GetLength(1), numpyArray.Shape[1]);
+
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    Assert.AreEqual(array[i, j], numpyArray.Get(i, j));
                 }
             }
         }
@@ -201,7 +227,7 @@ namespace SkLearn.Test
         {
             AssertEqualData(numpyArray, array, DOUBLE_COMPARE_EPSILON);
         }
-        
+
         public static void AssertEqualData(NumpyArray<double> numpyArray, double[,,] array, double epsilon)
         {
             Assert.AreEqual(3, numpyArray.Shape.Length);

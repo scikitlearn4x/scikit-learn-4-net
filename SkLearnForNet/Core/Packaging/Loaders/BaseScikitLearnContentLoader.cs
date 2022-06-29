@@ -97,6 +97,21 @@ namespace SkLearn.Core.Packaging.Loaders
                     List<Object> value = buffer.ReadList();
                     ((ScikitLearnLoaderListOfNumpyArrayFieldSetter<ObjectType>) info.setter)(result, value);
                 }
+                else if (info.fieldType == LoaderFieldInfoType.List)
+                {
+                    List<Object> value = buffer.ReadList();
+                    ((ScikitLearnLoaderListFieldSetter<ObjectType>) info.setter)(result, value);
+                }
+                else if (info.fieldType == LoaderFieldInfoType.String)
+                {
+                    String value = buffer.ReadString();
+                    ((ScikitLearnLoaderStringFieldSetter<ObjectType>) info.setter)(result, value);
+                }
+                else if (info.fieldType == LoaderFieldInfoType.Dictionary)
+                {
+                    Dictionary<String, Object> value = buffer.ReadDictionary();
+                    ((ScikitLearnLoaderDictionaryFieldSetter<ObjectType>) info.setter)(result, value);
+                }
             }
 
             return result;
@@ -227,6 +242,69 @@ namespace SkLearn.Core.Packaging.Loaders
         }
         
         /// <summary>
+        /// Registers a list field for the scikit-learn serialized layout.
+        /// <param name="name">Name of the field.</param>
+        /// <param name="setter">The setter callback to load the value of the scikit-learn object.
+        /// </param>
+        /// </summary>
+        protected void RegisterListField(String name, ScikitLearnLoaderListFieldSetter<ObjectType> setter)
+        {
+            if (fields.ContainsKey(name))
+            {
+                throw new ScikitLearnCoreException("Field is already added");
+            }
+
+            LoaderFieldInfo field = new LoaderFieldInfo();
+            field.name = name;
+            field.setter = setter;
+            field.fieldType = LoaderFieldInfoType.List;
+
+            fields.Add(name, field);
+        }
+        
+        /// <summary>
+        /// Registers a String field for the scikit-learn serialized layout.
+        /// <param name="name">Name of the field.</param>
+        /// <param name="setter">The setter callback to load the value of the scikit-learn object.
+        /// </param>
+        /// </summary>
+        protected void RegisterStringField(String name, ScikitLearnLoaderStringFieldSetter<ObjectType> setter)
+        {
+            if (fields.ContainsKey(name))
+            {
+                throw new ScikitLearnCoreException("Field is already added");
+            }
+
+            LoaderFieldInfo field = new LoaderFieldInfo();
+            field.name = name;
+            field.setter = setter;
+            field.fieldType = LoaderFieldInfoType.String;
+
+            fields.Add(name, field);
+        }
+        
+        /// <summary>
+        /// Registers a Dictionary field for the scikit-learn serialized layout.
+        /// <param name="name">Name of the field.</param>
+        /// <param name="setter">The setter callback to load the value of the scikit-learn object.
+        /// </param>
+        /// </summary>
+        protected void RegisterDictionaryField(String name, ScikitLearnLoaderDictionaryFieldSetter<ObjectType> setter)
+        {
+            if (fields.ContainsKey(name))
+            {
+                throw new ScikitLearnCoreException("Field is already added");
+            }
+
+            LoaderFieldInfo field = new LoaderFieldInfo();
+            field.name = name;
+            field.setter = setter;
+            field.fieldType = LoaderFieldInfoType.Dictionary;
+
+            fields.Add(name, field);
+        }
+        
+        /// <summary>
         /// Sets the list of features names' of the dataset the model was trained on.
         /// <param name="result">The classifier to be loaded.</param>
         /// <param name="value">The list of feature names.</param>
@@ -278,6 +356,9 @@ namespace SkLearn.Core.Packaging.Loaders
         NumpyArray,
         StringArray,
         ListOfNumpyArray,
+        List,
+        String,
+        Dictionary,
     }
 
     /// <summary>
@@ -309,6 +390,24 @@ namespace SkLearn.Core.Packaging.Loaders
     /// </summary>
     /// <typeparam name="ObjectType">The type of the scikit-learn object.</typeparam>
     public delegate void ScikitLearnLoaderListOfNumpyArrayFieldSetter<ObjectType>(ObjectType obj, List<Object> value);
+
+    /// <summary>
+    /// Callback to set a list value in scikit-learn object.
+    /// </summary>
+    /// <typeparam name="ObjectType">The type of the scikit-learn object.</typeparam>
+    public delegate void ScikitLearnLoaderListFieldSetter<ObjectType>(ObjectType obj, List<Object> value);
+
+    /// <summary>
+    /// Callback to set a String value in scikit-learn object.
+    /// </summary>
+    /// <typeparam name="ObjectType">The type of the scikit-learn object.</typeparam>
+    public delegate void ScikitLearnLoaderStringFieldSetter<ObjectType>(ObjectType obj, String value);
+
+    /// <summary>
+    /// Callback to set a Dictionary value in scikit-learn object.
+    /// </summary>
+    /// <typeparam name="ObjectType">The type of the scikit-learn object.</typeparam>
+    public delegate void ScikitLearnLoaderDictionaryFieldSetter<ObjectType>(ObjectType obj, Dictionary<String, Object> value);
 
     /// <summary>
     /// Data class to hold the layout of the scikit-learn object.

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using SkLearn.Core.Packaging.Loaders.Classifiers.NaiveBayes;
+using SkLearn.Core.Packaging.Loaders.Preprocessing.Data;
+using SkLearn.Core.Packaging.Loaders.Preprocessing.Label;
 
 namespace SkLearn.Core.Packaging.Loaders
 {
@@ -22,6 +24,41 @@ namespace SkLearn.Core.Packaging.Loaders
         {
             registeredLoaders = new Dictionary<String, IScikitLearnContentLoader>();
 
+            RegisterNaiveBayesLoaders();
+            RegisterLabelPreprocessingLoaders();
+            RegisterDataPreprocessingLoaders();
+        }
+
+        /// <summary>
+        /// Registers the content loaders for data preprocessing.
+        /// </summary>
+        private static void RegisterDataPreprocessingLoaders()
+        {
+            RegisterLoader(new MinimumMaximumScalerContentLoader());
+            RegisterLoader(new StandardScalerContentLoader());
+            RegisterLoader(new MaximumAbsoluteScalerContentLoader());
+            RegisterLoader(new RobustScalerContentLoader());
+            RegisterLoader(new NormalizerContentLoader());
+            RegisterLoader(new BinarizerContentLoader());
+
+//        RegisterLoader(new QuantileTransformerContentLoader());
+        }
+
+        /// <summary>
+        /// Registers the content loaders for label preprocessing.
+        /// </summary>
+        private static void RegisterLabelPreprocessingLoaders()
+        {
+            RegisterLoader(new LabelEncoderContentLoader());
+            RegisterLoader(new LabelBinarizerContentLoader());
+            RegisterLoader(new MultiLabelBinarizerContentLoader());
+        }
+
+        /// <summary>
+        /// Registers the classes coming from the naive_bayes file in sklearn repository.
+        /// </summary>
+        private static void RegisterNaiveBayesLoaders()
+        {
             RegisterLoader(new GaussianNaiveBayesContentLoader());
             RegisterLoader(new BernoulliNaiveBayesContentLoader());
             RegisterLoader(new CategoricalNaiveBayesContentLoader());

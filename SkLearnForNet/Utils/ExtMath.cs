@@ -37,5 +37,36 @@ namespace SkLearn.Utils
 
             throw new ScikitLearnFeatureNotImplementedException();
         }
+
+        /// <summary>
+        /// Row-wise (squared) Euclidean norm of X.
+        /// Equivalent to np.sqrt((X * X).sum(axis=1))
+        /// <param name="x">The input array.</param>
+        /// <returns>The row-wise (squared) Euclidean norm of x.</returns>
+        /// </summary>
+        public static NumpyArray<double> RowNorm(NumpyArray<double> x)
+        {
+            return RowNorm(x, false);
+        }
+
+        /// <summary>
+        /// Row-wise (squared) Euclidean norm of X.
+        /// Equivalent to np.sqrt((X * X).sum(axis=1))
+        /// <param name="x">The input array.</param>
+        /// <param name="squared">If True, return squared norms.</param>
+        /// <returns>The row-wise (squared) Euclidean norm of x.</returns>
+        /// </summary>
+        public static NumpyArray<double> RowNorm(NumpyArray<double> x, bool squared)
+        {
+            NumpyArray<double> tmp = Numpy.Multiply(x, x);
+            tmp = Numpy.Sum(tmp, 1, false);
+
+            if (!squared)
+            {
+                tmp = Numpy.Sqrt(tmp);
+            }
+
+            return tmp;
+        }
     }
 }

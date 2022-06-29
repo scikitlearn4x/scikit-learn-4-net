@@ -5,7 +5,7 @@ namespace SkLearn.Utils
     /// <summary>
     /// Utils method that scikit-learn provide to preprocess the data.
     /// </summary>
-    public class Preprocessing
+    public class Preprocessings
     {
         /// <summary>
         /// Binarize a numpy array based on a given threshold.
