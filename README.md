@@ -116,6 +116,21 @@ other languages.
 Forth, porting the rich library of the regressors with proper testing to .NET and
 other languages.
 
+### Utility / Preprocessing Classes
+
+The following preprocessing are supported:
+* Data
+  - Binarizer
+  - MaximumAbsoluteScaler (MaxAbsScaler)
+  - MinimumMaximumScaler (MinMaxScaler)
+  - Normalizer
+  - RobustScaler
+  - StandardScaler
+* Label
+  - LabelBinarizer
+  - LabelEncoder
+  - MultiLabelBinarizer
+
 ### Classifiers
 
 The following classifiers are supported:
@@ -139,7 +154,7 @@ scikit-learn for .NET is available as a Nuget package. Simply use the following
 package information to add it as a dependency to your project.
 
 ```
-PM> Install-Package ai.scikitlearn4net -Version 0.0.3
+PM> Install-Package ai.scikitlearn4net -Version 0.0.4
 ```
 
 ## Project Raison d'Être
