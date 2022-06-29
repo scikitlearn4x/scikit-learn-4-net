@@ -1503,7 +1503,9 @@ namespace SkLearn.Core.Libraries.Numpy
                         rightWrap = a2.WrapInnerSubsetArray(i);
                     }
 
-                    MultiplyInPlace(target.WrapInnerSubsetArray(i), leftWrap, rightWrap);
+                    NumpyArray<double> tempTarget = target.WrapInnerSubsetArray(i); 
+                    MultiplyInPlace(tempTarget, leftWrap, rightWrap);
+                    CopySubArray(target, i, tempTarget);
                 }
             }
         }
@@ -1772,9 +1774,31 @@ namespace SkLearn.Core.Libraries.Numpy
                         rightWrap = a2.WrapInnerSubsetArray(i);
                     }
 
-                    DivideInPlace(target.WrapInnerSubsetArray(i), leftWrap, rightWrap);
+                    NumpyArray<double> tempTarget = target.WrapInnerSubsetArray(i);
+                    DivideInPlace(tempTarget, leftWrap, rightWrap);
+                    CopySubArray(target, i, tempTarget);
                 }
             }
+        }
+
+        /// <summary>
+        /// Copies the temporary array into the target as a sub array.
+        /// </summary>
+        /// <param name="target">The final target to save.</param>
+        /// <param name="firstDim">The value of the first dimension in the target array.</param>
+        /// <param name="temp">The temporary sub array.</param>
+        private static void CopySubArray(NumpyArray<double> target, int firstDim, NumpyArray<double> temp)
+        {
+            int[] targetIndex = new int[target.NumberOfDimensions];
+            targetIndex[0] = firstDim;
+            temp.IterateOnEachElement((value, index) =>
+            {
+                for (int i = 0; i < index.Length; i++)
+                {
+                    targetIndex[i + 1] = index[i];
+                }
+                target.Set(value, targetIndex);
+            });
         }
 
         /// <summary>
@@ -1964,9 +1988,9 @@ namespace SkLearn.Core.Libraries.Numpy
         {
             NumpyArray<DataType> result = NumpyArrayFactory.CreateArrayOfShapeAndTypeInfo<DataType>(array.IsFloatingPoint, array.NumberOfBytes, array.Shape);
             NumpyArrayElementOperation<DataType> absOperation = null;
-            MethodInfo abs = typeof(Math).GetMethod("Abs", BindingFlags.Public | BindingFlags.Static);
+            MethodInfo abs = typeof(Math).GetMethod("Abs", BindingFlags.Public | BindingFlags.Static, null, new Type[] { typeof(DataType) }, null);
 
-            absOperation = value => (DataType)abs.Invoke(null, new[] { new[] { value } });
+            absOperation = value => (DataType)abs.Invoke(null, new object?[] {value});
             array.ApplyToEachElementAnsSaveToTarget(result, absOperation);
 
             return result;
@@ -1984,7 +2008,7 @@ namespace SkLearn.Core.Libraries.Numpy
             NumpyArrayElementOperation<DataType> absOperation = null;
             MethodInfo sqrt = typeof(Math).GetMethod("Sqrt", BindingFlags.Public | BindingFlags.Static);
 
-            absOperation = value => (DataType)sqrt.Invoke(null, new[] { new[] { value } });
+            absOperation = value => (DataType)sqrt.Invoke(null, new object?[] { value } );
             array.ApplyToEachElementAnsSaveToTarget(result, absOperation);
 
             return result;

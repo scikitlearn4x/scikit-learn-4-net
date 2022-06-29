@@ -102,7 +102,7 @@ namespace SkLearn.Core.Packaging.Loaders.Preprocessing.Data
         /// </summary>
         private void SetWithScaling(RobustScaler result, long value)
         {
-            result.WithCentering = (value == 1);
+            result.WithScaling = (value == 1);
         }
 
         /// <summary>

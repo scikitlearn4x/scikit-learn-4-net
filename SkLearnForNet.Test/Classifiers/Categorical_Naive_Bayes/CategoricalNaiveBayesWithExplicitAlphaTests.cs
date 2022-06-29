@@ -19,8 +19,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.1.1";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -34,8 +34,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.1.1";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -49,8 +49,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.1.1";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -68,8 +68,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.6";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -83,8 +83,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.6";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -98,8 +98,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.6";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -117,8 +117,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -132,8 +132,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -147,8 +147,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -166,8 +166,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -181,8 +181,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -196,8 +196,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -215,8 +215,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -230,8 +230,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -245,8 +245,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.1";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -264,8 +264,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.6";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -279,8 +279,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.6";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -294,8 +294,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.6";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -313,8 +313,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -328,8 +328,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -343,8 +343,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -362,8 +362,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -377,8 +377,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -392,8 +392,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -411,8 +411,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -426,8 +426,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -441,8 +441,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "0.24.2";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -460,8 +460,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.1";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -475,8 +475,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.1";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -490,8 +490,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.1";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -509,8 +509,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.1";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -524,8 +524,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.1";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -539,8 +539,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.1";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -558,8 +558,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.1";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -573,8 +573,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.1";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -588,8 +588,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.1";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -607,8 +607,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -622,8 +622,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -637,8 +637,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.7";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -656,8 +656,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -671,8 +671,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -686,8 +686,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.8";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -705,8 +705,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -720,8 +720,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -735,8 +735,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.9";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -754,8 +754,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.10";
 		testingTemplate.DataSetName = "iris";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -769,8 +769,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.10";
 		testingTemplate.DataSetName = "wine";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		
@@ -784,8 +784,8 @@ public class CategoricalNaiveBayesWithExplicitAlphaTests {
 		testingTemplate.ScikitLearnVersion = "1.0.2";
 		testingTemplate.PythonVersion = "3.10";
 		testingTemplate.DataSetName = "breast_cancer";
-		testingTemplate.ClassifierName = "Categorical Naive Bayes";
-		testingTemplate.ClassifierConfigurationName = "with explicit alpha";
+		testingTemplate.ObjectName = "Categorical Naive Bayes";
+		testingTemplate.ConfigurationName = "with explicit alpha";
 		testingTemplate.SupportProbability = true;
 		testingTemplate.FeatureNames = null;
 		

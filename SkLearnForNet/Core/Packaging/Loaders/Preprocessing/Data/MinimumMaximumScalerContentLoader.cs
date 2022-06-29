@@ -173,7 +173,7 @@ namespace SkLearn.Core.Packaging.Loaders.Preprocessing.Data
             double[] data = new double[value.Count];
             for (int i = 0; i < data.Length; i++)
             {
-                data[i] = (double)value[i]; // WTF java?!
+                data[i] = double.Parse(value[i].ToString()); // WTF C#?!
             }
 
             result.FeatureRange = data;

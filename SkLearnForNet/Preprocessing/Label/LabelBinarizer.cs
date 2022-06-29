@@ -201,11 +201,11 @@ namespace SkLearn.Preprocessing.Label
         private List<Object> InverseTransformBinary(NumpyArray<long> array)
         {
             List<Object> result = new List<Object>();
-            long[][] values = (long[][])array.GetWrapper().RawArray;
+            long[,] values = (long[,])array.GetWrapper().RawArray;
 
             for (int i = 0; i < values.Length; i++)
             {
-                int cls = (int)values[i][0];
+                int cls = (int)values[i, 0];
                 result.Add(cls == NegativeLabel ? Classes[0] : Classes[1]);
             }
 
@@ -220,11 +220,11 @@ namespace SkLearn.Preprocessing.Label
         private List<Object> InverseTransformMulticlass(NumpyArray<long> array)
         {
             List<Object> result = new List<Object>();
-            long[][] values = (long[][])array.GetWrapper().RawArray;
+            long[,] values = (long[,])array.GetWrapper().RawArray;
 
-            for (int i = 0; i < values.Length; i++)
+            for (int i = 0; i < values.GetLength(0); i++)
             {
-                int cls = GetPositiveLabelIndex(values[i]);
+                int cls = GetPositiveLabelIndex(values, i);
                 if (cls < 0 || cls >= Classes.Count)
                 {
                     throw new ScikitLearnCoreException($"The class '{cls}' is not in valid range.");
@@ -240,16 +240,17 @@ namespace SkLearn.Preprocessing.Label
 
         /// <summary>
         /// Gets which index holds the class presence. This only works for multiclass binarized columns.
-        /// <param name="value">The binarized value.</param>
+        /// <param name="value">The array containing binarized value.</param>
+        /// <param name="rowIndex">The row index of the binarized value.</param>
         /// <returns>Index of the class.</returns>
         /// </summary>
-        private int GetPositiveLabelIndex(long[] value)
+        private int GetPositiveLabelIndex(long[,] value, int rowIndex)
         {
             int result = -1;
 
-            for (int i = 0; i < value.Length; i++)
+            for (int i = 0; i < value.GetLength(1); i++)
             {
-                if (value[i] == PositiveLabel)
+                if (value[rowIndex, i] == PositiveLabel)
                 {
                     result = i;
                     break;

@@ -33,6 +33,9 @@ namespace SkLearn.Preprocessing.Data
         /// </summary>
         public RobustScaler()
         {
+            UnitVariance = true;
+            WithCentering = true;
+            WithScaling = true;
         }
 
         /// <summary>
